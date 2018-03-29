@@ -10,7 +10,7 @@
     
         <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="filecss.css">
+<link rel="stylesheet" href="../static/css/filecss.css">
         
     </head>
         <body>
@@ -31,13 +31,13 @@
 
                 <div class="container padding-32" id="signUp" style="margin-top: 30px">
                     <h3 class="border-bottom border-light-grey padding-16">Sign Up</h3>
-                    <form action="/action_page.php" target="_blank">
+                    <form action="/register"  method="POST">
                       <input class="input section" type="text" placeholder="Name" required name="Name">
                       <input class="input section" type="text" placeholder="Email" required name="Email">
-                      <input class="input section" type="password" placeholder="Password" required name="Pasword">
+                      <input class="input section" type="password" placeholder="Password" required name="Password">
                       <input class="input section" type="password" placeholder="Confirm Password" required name="Confirm Password">
                       <button class="button black section" type="submit">
-                        <i class="fa fa-paper-plane"></i> Login
+                        <i class="fa fa-paper-plane"></i> Sign up
                       </button>
                       <a href="main.html" style="margin-left: 20px"><u>Already Registered?</u></a>
                     </form>

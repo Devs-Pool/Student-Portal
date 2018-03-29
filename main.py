@@ -30,8 +30,9 @@ def profile():
 
 def register():
     if request.method == 'POST':
-        name  = request.form['username']
-        password = request.form['pass']
+        name  = request.form['Email']
+        password = request.form['Password']
+        print "aaya"
         signature = Comment(name=name,password=password)
         db.session.add(signature)
         db.session.commit()
@@ -49,14 +50,14 @@ def form():
 
 def login():
     if request.method == 'POST':
-        name  = request.form['username']
-        password = request.form['pass']
+        name  = request.form['Email']
+        password = request.form['Password']
         person = Comment.query.all()
         for i in person:
             if i.name == name and i.password==password:
                 return render_template('dashboard.html',name = name)
         return render_template('register.html',name = name)
-    return render_template('hello.html',name="noting")
+    return render_template('register.html',name="noting")
 
 if __name__ == "__main__":
     app.run(debug=True)
