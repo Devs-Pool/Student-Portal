@@ -30,6 +30,10 @@ def display(filename):
 def dikhade():
    return render_template('display.html',filename="3musketeer.jpg")
 
+@app.route('/akshat')
+def akshat():
+   return render_template('index.html')
+
 
 @app.route('/uploader', methods = ['GET', 'POST'])
 def upload_file():
