@@ -22,6 +22,10 @@ class uploaded(db.Model):
 def upload():
    return send_from_directory('uploads',"3musketeer.jpg",as_attachment=True)
 
+@app.route('/dashboard')
+def dashboard():
+   return render_template('dashboard.html')
+
 @app.route('/display<filename>')
 def display(filename):
    return send_from_directory('uploads',filename)
