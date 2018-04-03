@@ -1,19 +1,24 @@
-from flask import Flask, render_template, request,send_file,send_from_directory
+from flask import Flask, render_template, request,send_file,send_from_directory,redirect,session
 from flask_sqlalchemy import SQLAlchemy
 from flask import url_for
 import os
 from werkzeug import secure_filename
+
 app = Flask(__name__)
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:taru9668@localhost/studentPortal'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)  
 UPLOAD_FOLDER = './uploads'
+app.secret_key = 'njsdnjsd'
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
-
 class Student(db.Model):
     name = db.Column(db.String(50),primary_key = True)
     email = db.Column(db.String(30))
     password = db.Column(db.String(30))
+
+class Reference(db.Model):
+    email = db.Column(db.String(50),primary_key = True)
 
 class uploaded(db.Model):
     name = db.Column(db.String(50),primary_key=True)
@@ -22,13 +27,22 @@ class uploaded(db.Model):
 def upload():
    return send_from_directory('uploads',"3musketeer.jpg",as_attachment=True)
 
-@app.route('/dashboard')
-def dashboard():
-   return render_template('dashboard.html')
+@app.route('/logout')
+def logout():
+   session.pop('email',None)
+   return redirect(url_for('login'))
+
 
 @app.route('/display<filename>')
 def display(filename):
    return send_from_directory('uploads',filename)
+
+@app.route('/dashboard')
+def dashboard():
+    if 'email' in session:
+        name = session['email']
+        return render_template('dashboard.html',name=name,filename="3musketeer.jpg")
+    return redirect(url_for('login'))
 
 @app.route('/dikhade')
 def dikhade():
@@ -36,7 +50,7 @@ def dikhade():
 
 @app.route('/akshat')
 def akshat():
-   return render_template('index.html')
+   return render_template('test.html')
 
 
 @app.route('/uploader', methods = ['GET', 'POST'])
@@ -73,7 +87,8 @@ def login():
         person = Student.query.all()
         for i in person:
             if i.email == name and i.password==password:
-                return render_template('dashboard.html',name = name)
+                session['email']=name
+                return redirect(url_for('dashboard'))
         return render_template('main.html',name = name)
     return render_template('main.html',name="noting")
 
