@@ -122,64 +122,39 @@
 
          <form class="form-horizontal form-label-left input_mask">
 
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
-            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control" id="inputSuccess3" placeholder="Last Name">
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email">
-            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone">
-            <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" placeholder="Default Input">
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Father's Name </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" class="form-control" placeholder="Father's Name">
+                </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Read-Only Input</label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" readonly="readonly" placeholder="Read-Only Input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
-            </label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-                <div class="col-sm-10">
-                    <div class="input-group">
-                     <div class="input-group-addon">
-                      <i class="fa fa-calendar">
-                      </i>
-                     </div>
-                     <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+            <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Mother's Name </label>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Mother's Name">
                     </div>
-                    </div>
-
             </div>
-          </div>
+            <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian's Name </label>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Guardian's Name">
+                    </div>
+            </div>
+            <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian's Email </label>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Guardian's Email">
+                    </div>
+            </div>
+            <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian's Mobile Number </label>
+                    <div class="col-md-5 col-sm-5 col-xs-12">
+                      <input type="text" class="form-control" placeholder="Guardian's Mobile Number">
+                    </div>
+            </div>
           <div class="ln_solid"></div>
           <div class="form-group">
             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-              <button type="button" class="btn btn-primary">Cancel</button>
               <button class="btn btn-primary" type="reset">Reset</button>
               <button type="submit" class="btn btn-success">Submit</button>
             </div>
@@ -244,17 +219,5 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-    <script>
-      $(document).ready(function(){
-        var date_input=$('input[name="date"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-          format: 'mm/dd/yyyy',
-          container: container,
-          todayHighlight: true,
-          autoclose: true,
-        })
-      })
-    </script>
   </body>
 </html>

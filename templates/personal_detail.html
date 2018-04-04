@@ -122,64 +122,70 @@
 
          <form class="form-horizontal form-label-left input_mask">
 
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
-            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control" id="inputSuccess3" placeholder="Last Name">
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email">
-            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone">
-            <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" placeholder="Default Input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Read-Only Input</label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" readonly="readonly" placeholder="Read-Only Input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
-            </label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-                <div class="col-sm-10">
-                    <div class="input-group">
-                     <div class="input-group-addon">
-                      <i class="fa fa-calendar">
-                      </i>
-                     </div>
-                     <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
-                    </div>
-                    </div>
-
-            </div>
-          </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Full Name </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <input type="radio" id="Check1" value="Value1" onclick="selectGender(this.id)" /> Male
+                    <input type="radio" style="margin-left: 25px" id="Check2" value="Value1" onclick="selectGender(this.id)" /> Female
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth </label>
+                <div class="col-md-7 col-sm-7 col-xs-12">
+                    <div class="col-sm-9">
+                        <div class="input-group">
+                         <div class="input-group-addon">
+                          <i class="fa fa-calendar">
+                          </i>
+                         </div>
+                         <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+                        </div>
+                        </div>
+    
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Marital Status </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <input type="radio" id="Marital1" value="MaritalValue1" onclick="selectMarital(this.id)" /> Married
+                    <input type="radio" style="margin-left: 25px" id="Marital2" value="MaritalValue1" onclick="selectMarital(this.id)" /> Unmarried
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Admission Category </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <input type="radio" id="Category1" value="CatValue1" onclick="selectCategory(this.id)" /> General
+                    <input type="radio" style="margin-left: 25px" id="Category2" value="CatValue1" onclick="selectCategory(this.id)" /> SC
+                    <input type="radio" style="margin-left: 25px" id="Category3" value="CatValue1" onclick="selectCategory(this.id)" /> ST
+                    <input type="radio" style="margin-left: 25px" id="Category4" value="CatValue1" onclick="selectCategory(this.id)" /> OBC
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Are you physically challenged? </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <input type="radio" id="Pwd1" value="PwdValue1" onclick="selectPwd(this.id)" /> Yes
+                    <input type="radio" style="margin-left: 25px" id="Pwd2" value="PwdValue1" onclick="selectPwd(this.id)" /> No
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                    <input type="radio" id="Nation1" value="NationValue1" onclick="selectNation(this.id)" /> Indian
+                    <input type="radio" style="margin-left: 25px" id="Nation2" value="NationValue1" onclick="selectNation(this.id)" /> Others
+                </div>
+                <div id="country" style="display: none" class="col-md-5 col-sm-5 col-xs-12">
+                    <input type="text" class="form-control" placeholder="Country Name">
+                  </div>
+              </div>
           <div class="ln_solid"></div>
           <div class="form-group">
             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-              <button type="button" class="btn btn-primary">Cancel</button>
               <button class="btn btn-primary" type="reset">Reset</button>
               <button type="submit" class="btn btn-success">Submit</button>
             </div>
@@ -256,5 +262,47 @@
         })
       })
     </script>
+    <script>
+    function selectGender(id) {
+    for (var i = 1;i <= 2; i++)
+    {
+        document.getElementById("Check" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+    }
+    function selectMarital(id) {
+    for (var i = 1;i <= 2; i++)
+    {
+        document.getElementById("Marital" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+    }
+    function selectCategory(id) {
+    for (var i = 1;i <= 4; i++)
+    {
+        document.getElementById("Category" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+    }
+    function selectPwd(id) {
+    for (var i = 1;i <= 2; i++)
+    {
+        document.getElementById("Pwd" + i).checked = false;
+    }
+    document.getElementById(id).checked = true;
+    }
+    function selectNation(id) {
+    for (var i = 1;i <= 2; i++)
+    {
+        document.getElementById("Nation" + i).checked = false;
+    }
+    if (id=="Nation1") {
+        document.getElementById("country").style.display = "none";
+    } else {
+        document.getElementById("country").style.display = "block";
+    }
+    document.getElementById(id).checked = true;
+    }
+</script>
   </body>
 </html>
