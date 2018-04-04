@@ -16,14 +16,12 @@
         <body>
             <div class="top">
                 <div class="bar white wide padding card">
-                  <a href="#home" class="bar-item button"><b>IIIT </b>Lucknow</a>
+                  <a href="https://iiitl.ac.in/" class="bar-item button"><b>IIIT </b>Lucknow</a>
                   
                   <div class="right hide-small">
-                    <a href="#projects" class="bar-item button">About</a>
-                    <a href="#about" class="bar-item button">Admission</a>
-                    <a href="#contact" class="bar-item button">News&Event</a>
-                    <button type="button" class="btn btn-default">
-                        <span class="glyphicon glyphicon-search"></span> Search </button>
+                    <a href="https://iiitl.ac.in/about" class="bar-item button">About</a>
+                    <a href="https://iiitl.ac.in/articles" class="bar-item button">News&Event</a>
+                  
                         
                       </div>
                 </div>
@@ -35,11 +33,14 @@
                   <form action="/login" method="POST">
                     <input class="input section" type="text" placeholder="Email" required name="Email">
                     <input class="input section" type="password" placeholder="Password" required name="Password">
+                    <div>
+                        <input type="checkbox" id="Check1" name="teacher" onclick="selectOnlyThis(this.id)" />Teacher 
+                        <input type="checkbox" id="Check2" name="student" onclick="selectOnlyThis(this.id)" />Student   
+                    </div>
                     <button class="button black section" type="submit">
                       <i class="fa fa-paper-plane"></i> Login
                     </button>
                     <a href="register" style="margin-left: 20px"><u>New User?</u></a>
-                    <h3>{{ name }}</h3>
                   </form>
                 </div>      
                 
@@ -70,5 +71,14 @@
               </body>
               </html>
         </body>
+        <script>
+          function selectOnlyThis(id) {
+            for (var i = 1;i <= 2; i++)
+            {
+              document.getElementById("Check" + i).checked = false;
+            }
+            document.getElementById(id).checked = true;
+          }
+        </script>
     
 </html>
