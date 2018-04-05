@@ -76,7 +76,7 @@ def register():
         db.session.add(signature)
         db.session.commit()
         return render_template("thanks.html")
-    return render_template("register.html",name="nothing")
+    return render_template("register.html",name="")
     
 @app.route('/login',methods=['GET','POST'])
 
@@ -84,13 +84,16 @@ def login():
     if request.method == 'POST':
         name  = request.form['Email']
         password = request.form['Password']
+        print name
+        if name is "":
+            return redirect(url_for('login'))
         person = Student.query.all()
         for i in person:
             if i.email == name and i.password==password:
                 session['email']=name
                 return redirect(url_for('dashboard'))
-        return render_template('main.html',name = name)
-    return render_template('main.html',name="noting")
+        return render_template('main.html',name = "Yor are not a registered user!")
+    return render_template('main.html',name="")
 
 if __name__ == "__main__":
     app.run(debug=True)
