@@ -58,37 +58,37 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                <div class="menu_section">
-                  <h3>General</h3>
-                  <ul class="nav side-menu">
-                    <li><a><i class="fa fa-home"></i> Overview <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="dashboard">Dashboard</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-desktop"></i> Personal Information <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="personal_details">Personal Detail</a></li>
-                        <li><a href="parental_details">Parent Detail</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="contact"><i class="fa fa-edit"></i> Contact Details</a>
-                      
-                    </li>
-                    <li><a href="communication"><i class="fa fa-table"></i> Communication Details</a>
-                    </li>
-                    <li><a href="qualified"><i class="fa fa-bar-chart-o"></i> Qualify Exam</a>
-                      
-                    </li>
-                    <li><a><i class="fa fa-clone"></i>Axademic Qualification <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="academic_classX">Class X</a></li>
-                        <li><a href="academic_classXII">Class XII</a></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
+              <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                  <li class="active"><a><i class="fa fa-home"></i> Overview <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: block">
+                      <li class="current-page"><a href="dashboard">Dashboard</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-desktop"></i> Personal Information <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="personal_details">Personal Detail</a></li>
+                      <li><a href="parental_details">Parent Detail</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="contact"><i class="fa fa-edit"></i> Contact Details</a>
+                    
+                  </li>
+                  <li><a href="communication"><i class="fa fa-table"></i> Communication Details</a>
+                  </li>
+                  <li><a href="qualified"><i class="fa fa-bar-chart-o"></i> Qualify Exam</a>
+                    
+                  </li>
+                  <li><a><i class="fa fa-clone"></i>Axademic Qualification <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="academic_classX">Class X</a></li>
+                      <li><a href="academic_classXII">Class XII</a></li>
+                    </ul>
+                  </li>
+                </ul>
               </div>
+            </div>
             <!-- /sidebar menu -->
           </div>
         </div>
@@ -118,32 +118,7 @@
         <!-- /top navigation -->
 
         <!-- page content -->
-        <div class="right_col" role="main">
-
-         <form class="form-horizontal form-label-left input_mask" action="/contact" method="POST">
-
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Personal Mobile Number </label>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" class="form-control" placeholder="{{contact}}" required name="contact_no">
-                </div>
-            </div>
-            <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Personal Email Id </label>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                      <input type="text" disabled="disabled" class="form-control" placeholder="{{session['email']}}">
-                    </div>
-                </div>
-          <div class="ln_solid"></div>
-          <div class="form-group">
-            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-              <button class="btn btn-primary" type="reset">Reset</button>
-              <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-          </div>
-
-        </form>
-        </div>
+        <h2>We received your responses! Contact Admin for any updation GM</h2>
         <!-- /page content -->
 
         <!-- footer content -->
@@ -201,5 +176,17 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
+    <script>
+      $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+          format: 'mm/dd/yyyy',
+          container: container,
+          todayHighlight: true,
+          autoclose: true,
+        })
+      })
+    </script>
   </body>
 </html>

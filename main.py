@@ -72,10 +72,15 @@ def logout():
 def display(filename):
    return send_from_directory('uploads',filename)
 
-@app.route('/personal_details')
+@app.route('/personal_details',methods=['GET','POST'])
 def personal_details():
-    if 'name' in session:
+    if 'name' not in session:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
         name = session['name']
+        gender = "female"
+        if request.form.get('male'):
+            gender = "male"
         return render_template('personal_detail.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
@@ -86,12 +91,28 @@ def parental_details():
         return render_template('parent_detail.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
-@app.route('/contact')
+@app.route('/contact',methods=['GET','POST'])
 def contact():
-    if 'name' in session:
+    if 'name' not in session:
+        return redirect(url_for('login'))
+    if request.method == 'POST':
         name = session['name']
-        return render_template('contact.html',name=name,filename="3musketeer.jpg")
-    return redirect(url_for('login'))
+        contact = request.form['contact_no']
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no']:
+                i.contact_no = contact
+                db.session.commit()
+                break
+        return render_template('contact.html',name=session['name'],filename="3musketeer.jpg",contact=contact)
+    student = Student.query.all()
+    contact = "None"
+    for i in student:
+        if i.roll_no == session['roll_no']:
+            contact = i.contact_no
+            break
+    if 'name' in session:
+        return render_template('contact.html',name=session['name'],filename="3musketeer.jpg",contact=contact)
 
 @app.route('/communication')
 def communication():
@@ -177,6 +198,7 @@ def login():
             if i.email == email and i.password==password:
                 session['email']=email
                 session['name']=i.name
+                session['roll_no']=i.roll_no
                 return redirect(url_for('dashboard'))
         return render_template('main.html',name = "Yor are not a registered user!")
     return render_template('main.html',name="")
