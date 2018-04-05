@@ -39,6 +39,55 @@ def logout():
 def display(filename):
    return send_from_directory('uploads',filename)
 
+@app.route('/personal_details')
+def personal_details():
+    if 'email' in session:
+        name = session['email']
+        return render_template('personal_detail.html',name=name,filename="3musketeer.jpg")
+    return redirect(url_for('login'))
+
+@app.route('/parental_details')
+def parental_details():
+    if 'email' in session:
+        name = session['email']
+        return render_template('parent_detail.html',name=name,filename="3musketeer.jpg")
+    return redirect(url_for('login'))
+
+@app.route('/contact')
+def contact():
+    if 'email' in session:
+        name = session['email']
+        return render_template('contact.html',name=name,filename="3musketeer.jpg")
+    return redirect(url_for('login'))
+
+@app.route('/communication')
+def communication():
+    if 'email' in session:
+        name = session['email']
+        return render_template('communication.html',name=name,filename="3musketeer.jpg")
+    return redirect(url_for('login'))
+
+@app.route('/qualified')
+def qualified():
+    if 'email' in session:
+        name = session['email']
+        return render_template('qualify.html',name=name,filename="3musketeer.jpg")
+    return redirect(url_for('login'))
+
+@app.route('/academic_classX')
+def academic_classX():
+    if 'email' in session:
+        name = session['email']
+        return render_template('classX.html',name=name,filename="3musketeer.jpg")
+    return redirect(url_for('login'))
+
+@app.route('/academic_classXII')
+def academic_classXII():
+    if 'email' in session:
+        name = session['email']
+        return render_template('classXII.html',name=name,filename="3musketeer.jpg")
+    return redirect(url_for('login'))
+
 @app.route('/dashboard')
 def dashboard():
     if 'email' in session:
