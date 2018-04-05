@@ -23,6 +23,8 @@ class Reference(db.Model):
 class uploaded(db.Model):
     name = db.Column(db.String(50),primary_key=True)
 
+
+
 @app.route('/upload')
 def upload():
    return send_from_directory('uploads',"3musketeer.jpg",as_attachment=True)
@@ -50,7 +52,7 @@ def dikhade():
 
 @app.route('/akshat')
 def akshat():
-   return render_template('test.html')
+   return render_template('dashboard_test.html')
 
 
 @app.route('/uploader', methods = ['GET', 'POST'])
@@ -84,10 +86,11 @@ def login():
     if request.method == 'POST':
         name  = request.form['Email']
         password = request.form['Password']
-        print name
         if name is "":
             return redirect(url_for('login'))
         person = Student.query.all()
+        if request.form.get('teacher'):
+            return render_template('dashboard_test.html')
         for i in person:
             if i.email == name and i.password==password:
                 session['email']=name
