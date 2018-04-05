@@ -39,7 +39,7 @@ class Student(db.Model):
     exam_rank=db.Column(db.String(30))
     semester=db.Column(db.Integer())
     branch=db.Column(db.String(30))
-    roll_no=db.Column(db.String(30),primary_key=True)
+    roll_no=db.Column(db.Integer(),primary_key=True)
     x_passing_year=db.Column(db.String(30))
     x_school_name=db.Column(db.String(30))
     x_board_name=db.Column(db.String(30))
@@ -48,11 +48,6 @@ class Student(db.Model):
     xii_school_name=db.Column(db.String(30))
     xii_board_name=db.Column(db.String(30))
     xii_grade=db.Column(db.String(30))
-
-    def __init__(self,name,email,password):
-        self.name = name
-        self.email=email
-        self.password = password
 
     #  create table student(name char(30), email char(30) unique,  password  char(30),  image_url char(100),  contact_no char(12), father_name char(30),  mother_name char(30), guardian_name char(30), guardian_contact_no char(30), guardian_email_id char(30),date_of_birth char(8),gender char(10), admission_category char(10), physically_challenged char(10),  nationality char(30), marital_status char(30), address char(200), city char(30), state char(30), zip char(30), country char(30), name_of_exam char(30), exam_marks char(30), exam_rank char(30), semester int, branch char(30), roll_no INT PRIMARY KEY AUTO_INCREMENT,  x_passing_year char(30), x_school_name char(30), x_board_name char(30), x_grade char(30), xii_passing_year char(30), xii_school_name char(30), xii_board_name char(30), xii_grade char(30));
 class Reference(db.Model):
@@ -79,57 +74,57 @@ def display(filename):
 
 @app.route('/personal_details')
 def personal_details():
-    if 'email' in session:
-        name = session['email']
+    if 'name' in session:
+        name = session['name']
         return render_template('personal_detail.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
 @app.route('/parental_details')
 def parental_details():
-    if 'email' in session:
-        name = session['email']
+    if 'name' in session:
+        name = session['name']
         return render_template('parent_detail.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
 @app.route('/contact')
 def contact():
-    if 'email' in session:
-        name = session['email']
+    if 'name' in session:
+        name = session['name']
         return render_template('contact.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
 @app.route('/communication')
 def communication():
-    if 'email' in session:
-        name = session['email']
+    if 'name' in session:
+        name = session['name']
         return render_template('communication.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
 @app.route('/qualified')
 def qualified():
-    if 'email' in session:
-        name = session['email']
+    if 'name' in session:
+        name = session['name']
         return render_template('qualify.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
 @app.route('/academic_classX')
 def academic_classX():
-    if 'email' in session:
-        name = session['email']
+    if 'name' in session:
+        name = session['name']
         return render_template('classX.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
 @app.route('/academic_classXII')
 def academic_classXII():
-    if 'email' in session:
-        name = session['email']
+    if 'name' in session:
+        name = session['name']
         return render_template('classXII.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
 @app.route('/dashboard')
 def dashboard():
-    if 'email' in session:
-        name = session['email']
+    if 'name' in session:
+        name = session['name']
         return render_template('dashboard.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
 
@@ -171,16 +166,17 @@ def register():
 
 def login():
     if request.method == 'POST':
-        name  = request.form['Email']
+        email  = request.form['Email']
         password = request.form['Password']
-        if name is "":
+        if email is "":
             return redirect(url_for('login'))
         person = Student.query.all()
         if request.form.get('teacher'):
             return render_template('dashboard_test.html')
         for i in person:
-            if i.email == name and i.password==password:
-                session['email']=name
+            if i.email == email and i.password==password:
+                session['email']=email
+                session['name']=i.name
                 return redirect(url_for('dashboard'))
         return render_template('main.html',name = "Yor are not a registered user!")
     return render_template('main.html',name="")
