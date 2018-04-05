@@ -13,10 +13,48 @@ UPLOAD_FOLDER = './uploads'
 app.secret_key = 'njsdnjsd'
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
 class Student(db.Model):
-    name = db.Column(db.String(50),primary_key = True)
+    name = db.Column(db.String(50))
     email = db.Column(db.String(30))
     password = db.Column(db.String(30))
+    image_url = db.Column(db.String(100))
+    contact_no = db.Column(db.String(12))
+    father_name =db.Column(db.String(30))
+    mother_name = db.Column(db.String(30))
+    guardian_name= db.Column(db.String(30))
+    guardian_contact_no= db.Column(db.String(12))
+    guardian_email_id=db.Column(db.String(30))
+    date_of_birth=db.Column(db.String(8))
+    gender=db.Column(db.String(10))
+    admission_category=db.Column(db.String(10))
+    physically_challenged=db.Column(db.String(10))
+    nationality=db.Column(db.String(30))
+    marital_status=db.Column(db.String(30))
+    address=db.Column(db.String(200))
+    city=db.Column(db.String(30))
+    state=db.Column(db.String(30))
+    zip=db.Column(db.String(30))
+    country=db.Column(db.String(30))
+    name_of_exam=db.Column(db.String(30))
+    exam_marks=db.Column(db.String(30))
+    exam_rank=db.Column(db.String(30))
+    semester=db.Column(db.Integer())
+    branch=db.Column(db.String(30))
+    roll_no=db.Column(db.String(30),primary_key=True)
+    x_passing_year=db.Column(db.String(30))
+    x_school_name=db.Column(db.String(30))
+    x_board_name=db.Column(db.String(30))
+    x_grade=db.Column(db.String(30))
+    xii_passing_year=db.Column(db.String(30))
+    xii_school_name=db.Column(db.String(30))
+    xii_board_name=db.Column(db.String(30))
+    xii_grade=db.Column(db.String(30))
 
+    def __init__(self,name,email,password):
+        self.name = name
+        self.email=email
+        self.password = password
+
+    #  create table student(name char(30), email char(30) unique,  password  char(30),  image_url char(100),  contact_no char(12), father_name char(30),  mother_name char(30), guardian_name char(30), guardian_contact_no char(30), guardian_email_id char(30),date_of_birth char(8),gender char(10), admission_category char(10), physically_challenged char(10),  nationality char(30), marital_status char(30), address char(200), city char(30), state char(30), zip char(30), country char(30), name_of_exam char(30), exam_marks char(30), exam_rank char(30), semester int, branch char(30), roll_no INT PRIMARY KEY AUTO_INCREMENT,  x_passing_year char(30), x_school_name char(30), x_board_name char(30), x_grade char(30), xii_passing_year char(30), xii_school_name char(30), xii_board_name char(30), xii_grade char(30));
 class Reference(db.Model):
     email = db.Column(db.String(50),primary_key = True)
 
