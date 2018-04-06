@@ -120,7 +120,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
 
-         <form class="form-horizontal form-label-left input_mask">
+         <form class="form-horizontal form-label-left input_mask" action="/personal_details" method="POST">
 
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Full Name </label>
@@ -131,8 +131,8 @@
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                    <input type="radio" id="Check1" value="Value1" onclick="selectGender(this.id)" /> Male
-                    <input type="radio" style="margin-left: 25px" id="Check2" value="Value1" onclick="selectGender(this.id)" /> Female
+                    <input type="radio" id="Check1" value="Value1" onclick="selectGender(this.id)"name="male" /> Male
+                    <input type="radio" style="margin-left: 25px" id="Check2" value="Value1" onclick="selectGender(this.id)"name="female" /> Female
                 </div>
               </div>
               <div class="form-group">
@@ -153,34 +153,34 @@
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Marital Status </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                    <input type="radio" id="Marital1" value="MaritalValue1" onclick="selectMarital(this.id)" /> Married
-                    <input type="radio" style="margin-left: 25px" id="Marital2" value="MaritalValue1" onclick="selectMarital(this.id)" /> Unmarried
+                    <input type="radio" id="Marital1" value="MaritalValue1" onclick="selectMarital(this.id)"name="marry" /> Married
+                    <input type="radio" style="margin-left: 25px" id="Marital2" value="MaritalValue1" onclick="selectMarital(this.id)" name="unmarry" /> Unmarried
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Admission Category </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                    <input type="radio" id="Category1" value="CatValue1" onclick="selectCategory(this.id)" /> General
-                    <input type="radio" style="margin-left: 25px" id="Category2" value="CatValue1" onclick="selectCategory(this.id)" /> SC
-                    <input type="radio" style="margin-left: 25px" id="Category3" value="CatValue1" onclick="selectCategory(this.id)" /> ST
-                    <input type="radio" style="margin-left: 25px" id="Category4" value="CatValue1" onclick="selectCategory(this.id)" /> OBC
+                    <input type="radio" id="Category1" value="CatValue1" onclick="selectCategory(this.id)" name="gen"/> General
+                    <input type="radio" style="margin-left: 25px" id="Category2" value="CatValue1" onclick="selectCategory(this.id)"  name="sc"/> SC
+                    <input type="radio" style="margin-left: 25px" id="Category3" value="CatValue1" onclick="selectCategory(this.id)" name="st" /> ST
+                    <input type="radio" style="margin-left: 25px" id="Category4" value="CatValue1" onclick="selectCategory(this.id)" name="obc" /> OBC
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Are you physically challenged? </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                    <input type="radio" id="Pwd1" value="PwdValue1" onclick="selectPwd(this.id)" /> Yes
-                    <input type="radio" style="margin-left: 25px" id="Pwd2" value="PwdValue1" onclick="selectPwd(this.id)" /> No
+                    <input type="radio" id="Pwd1" value="PwdValue1" onclick="selectPwd(this.id)"name="y" /> Yes
+                    <input type="radio" style="margin-left: 25px" id="Pwd2" value="PwdValue1" onclick="selectPwd(this.id)" name="n"/> No
                 </div>
               </div>
               <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                    <input type="radio" id="Nation1" value="NationValue1" onclick="selectNation(this.id)" /> Indian
-                    <input type="radio" style="margin-left: 25px" id="Nation2" value="NationValue1" onclick="selectNation(this.id)" /> Others
+                    <input type="radio" id="Nation1" value="NationValue1" onclick="selectNation(this.id)" name="indian"/> Indian
+                    <input type="radio" style="margin-left: 25px" id="Nation2" value="NationValue1" onclick="selectNation(this.id)" name="other" /> Others
                 </div>
                 <div id="country" style="display: none" class="col-md-5 col-sm-5 col-xs-12">
-                    <input type="text" class="form-control" placeholder="Country Name">
+                    <input type="text" class="form-control" placeholder="Country Name" name="getcountry">
                   </div>
               </div>
           <div class="ln_solid"></div>

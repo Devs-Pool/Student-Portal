@@ -23,7 +23,7 @@ class Student(db.Model):
     guardian_name= db.Column(db.String(30))
     guardian_contact_no= db.Column(db.String(12))
     guardian_email_id=db.Column(db.String(30))
-    date_of_birth=db.Column(db.String(8))
+    date_of_birth=db.Column(db.String(30))
     gender=db.Column(db.String(10))
     admission_category=db.Column(db.String(10))
     physically_challenged=db.Column(db.String(10))
@@ -76,13 +76,42 @@ def display(filename):
 def personal_details():
     if 'name' not in session:
         return redirect(url_for('login'))
+    name = session['name']
     if request.method == 'POST':
-        name = session['name']
         gender = "female"
         if request.form.get('male'):
             gender = "male"
-        return render_template('personal_detail.html',name=name,filename="3musketeer.jpg")
-    return redirect(url_for('login'))
+        marry = "unmarried"
+        dob = request.form['date']
+        if request.form.get('marry'):
+            marry = "married"
+        handicapped = "yes"
+        if request.form.get('n'):
+            handicapped = "no"
+        national = "indian"
+        if request.form.get('other'):
+            national = request.form['getcountry']
+        category = "General"
+        if request.form.get('sc'):
+            category = "SC"
+        if request.form.get('st'):
+            category = "ST"
+        if request.form.get('obc'):
+            category = "OBC"
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no']:
+                i.nationality = national
+                i.date_of_birth = dob
+                i.gender = gender
+                i.admission_category = category
+                i.physically_challenged = handicapped
+                i.marital_status = marry
+                db.session.commit()
+                break
+        return redirect(url_for('communication'))
+    return render_template('personal_detail.html',name=name,filename="3musketeer.jpg")
+    
 
 @app.route('/parental_details')
 def parental_details():
@@ -104,15 +133,14 @@ def contact():
                 i.contact_no = contact
                 db.session.commit()
                 break
-        return render_template('contact.html',name=session['name'],filename="3musketeer.jpg",contact=contact)
+        return redirect(url_for('communication'))
     student = Student.query.all()
-    contact = "None"
     for i in student:
         if i.roll_no == session['roll_no']:
-            contact = i.contact_no
+            if i.contact_no != None:
+                return redirect(url_for('communication'))
             break
-    if 'name' in session:
-        return render_template('contact.html',name=session['name'],filename="3musketeer.jpg",contact=contact)
+    return render_template('contact.html',name=session['name'],filename="3musketeer.jpg",contact="eg: 7060882020")
 
 @app.route('/communication')
 def communication():
