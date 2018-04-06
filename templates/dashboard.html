@@ -28,6 +28,7 @@
     <link href="../static/portal/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../static/css/build_css/custom.min.css" rel="stylesheet">
+    
   </head>
 
   <body class="nav-md">
@@ -119,79 +120,73 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
-            <form action = "uploader" method = "POST" enctype = "multipart/form-data">
-              <input type = "file" name = "file" />
-              <input type = "submit" class="btn btn-success"/>
-            </form>
+            <font size="+2">Student Dashboard </font>
+            <div class="boxed" style="background-color: white ; height: 800px; border: 1px solid rgb(221, 217, 217);margin-top:10px;">
+              <div style="margin-top:10px;margin-left:10px;">
+                  <font size="+1">Overview of your profile</font>
+                  <hr style="display: block;
+                  margin-top: 0.7em;
+                  margin-bottom: 0.7em;
+                  margin-left: auto;
+                  margin-right: auto;
+                  border-style: inset;
+                  border-width: 0.5px;">
 
-         <form class="form-horizontal form-label-left input_mask">
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control has-feedback-left" id="inputSuccess2" placeholder="First Name">
-            <span class="fa fa-user form-control-feedback left" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control" id="inputSuccess3" placeholder="Last Name">
-            <span class="fa fa-user form-control-feedback right" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control has-feedback-left" id="inputSuccess4" placeholder="Email">
-            <span class="fa fa-envelope form-control-feedback left" aria-hidden="true"></span>
-          </div>
-
-          <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="text" class="form-control" id="inputSuccess5" placeholder="Phone">
-            <span class="fa fa-phone form-control-feedback right" aria-hidden="true"></span>
-          </div>
-
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Default Input</label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" placeholder="Default Input">
+                  <div class="boxed1" style="background-color: white ; height: 700px;width:500px; border: 1px solid rgb(207, 205, 205);margin-top:10px;float: left;margin-left:20px;">
+                      <div style="margin-top:10px;margin-left:10px;">
+                        <font size="+1">Profile Details</font>
+                        <hr style="display: block;
+                        margin-top: 0.7em;
+                        margin-bottom: 0.7em;
+                        margin-left: auto;
+                        margin-right: auto;
+                        border-style: inset;
+                        border-width: 0.5px;">
+                        <br>
+                        <b>Name: </b>{{session['name']}}
+                        <br>
+                        <b>Date of Birth: </b>{{session['dob']}}
+                        <br>
+                        <b>Gender: </b>{{session['gender']}}
+                        <br>
+                        <b>Category: </b>{{session['category']}}
+                        <br>
+                        <b>Admission Category: </b>{{session['acategory']}}
+                        <br>
+                        <b>Admission Channel: </b>IIITL
+                        <br>
+                        <b>Email ID: </b>{{session['email']}}
+                        <br>
+                        <b>Mobile Number </b>{{session['contact']}}
+                        <br>  
+                      </div>
+                  </div>
+                  <div class="boxed2" style="background-color: white ; height: 700px;width:500px; border: 1px solid rgb(207, 205, 205);margin-top:10px;float: left;margin-left:30px;">
+                      <div style="margin-top:10px;margin-left:10px;">
+                        <font size="+1">Course Selection</font>
+                        <hr style="display: block;
+                        margin-top: 0.7em;
+                        margin-bottom: 0.7em;
+                        margin-left: auto;
+                        margin-right: auto;
+                        border-style: inset;
+                        border-width: 0.5px;">
+                      </div>
+                  </div>
+                  <div class="boxed3" style="background-color: white ; height: 700px;width:500px; border: 1px solid rgb(207, 205, 205);margin-top:10px;float: left;margin-left:30px;">
+                      <div style="margin-top:10px;margin-left:10px;">
+                        <font size="+1">Payment Details</font>
+                        <hr style="display: block;
+                        margin-top: 0.7em;
+                        margin-bottom: 0.7em;
+                        margin-left: auto;
+                        margin-right: auto;
+                        border-style: inset;
+                        border-width: 0.5px;">
+                      </div>
+                  </div>
+              </div>
             </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Disabled Input </label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" disabled="disabled" placeholder="Disabled Input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Read-Only Input</label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-              <input type="text" class="form-control" readonly="readonly" placeholder="Read-Only Input">
-            </div>
-          </div>
-          <div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth <span class="required">*</span>
-            </label>
-            <div class="col-md-9 col-sm-9 col-xs-12">
-                <div class="col-sm-10">
-                    <div class="input-group">
-                     <div class="input-group-addon">
-                      <i class="fa fa-calendar">
-                      </i>
-                     </div>
-                     <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
-                    </div>
-                    </div>
-
-            </div>
-          </div>
-        
-            
-          <div class="ln_solid"></div>
-          <div class="form-group">
-            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-              <button type="button" class="btn btn-primary">Cancel</button>
-              <button class="btn btn-primary" type="reset">Reset</button>
-              <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-          </div>
-
-        </form>
         </div>
         
         <!-- /page content -->

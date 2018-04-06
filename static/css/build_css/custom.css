@@ -32,6 +32,7 @@ html , body{
 .daterangepicker .input-mini.active {
     border: 1px solid #ccc
 }
+
 .daterangepicker select.monthselect,
 .daterangepicker select.yearselect,
 .daterangepicker select.hourselect,

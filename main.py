@@ -173,6 +173,15 @@ def academic_classXII():
 @app.route('/dashboard')
 def dashboard():
     if 'name' in session:
+        person = Student.query.all()
+        for i in person:
+            if i.roll_no == session['roll_no']:
+               session['gender']=i.gender
+               session['dob']=i.date_of_birth
+               session['contact']=i.contact_no
+               session['category']= i.admission_category
+               session['acategory']=i.admission_category
+               break
         name = session['name']
         return render_template('dashboard.html',name=name,filename="3musketeer.jpg")
     return redirect(url_for('login'))
