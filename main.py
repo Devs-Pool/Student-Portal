@@ -50,17 +50,7 @@ class Student(db.Model):
     xii_grade=db.Column(db.String(30))
 
     #  create table student(name char(30), email char(30) unique,  password  char(30),  image_url char(100),  contact_no char(12), father_name char(30),  mother_name char(30), guardian_name char(30), guardian_contact_no char(30), guardian_email_id char(30),date_of_birth char(8),gender char(10), admission_category char(10), physically_challenged char(10),  nationality char(30), marital_status char(30), address char(200), city char(30), state char(30), zip char(30), country char(30), name_of_exam char(30), exam_marks char(30), exam_rank char(30), semester int, branch char(30), roll_no INT PRIMARY KEY AUTO_INCREMENT,  x_passing_year char(30), x_school_name char(30), x_board_name char(30), x_grade char(30), xii_passing_year char(30), xii_school_name char(30), xii_board_name char(30), xii_grade char(30));
-class Reference(db.Model):
-    email = db.Column(db.String(50),primary_key = True)
 
-class uploaded(db.Model):
-    name = db.Column(db.String(50),primary_key=True)
-
-
-
-@app.route('/upload')
-def upload():
-   return send_from_directory('uploads',"3musketeer.jpg",as_attachment=True)
 
 @app.route('/logout')
 def logout():
@@ -78,6 +68,11 @@ def personal_details():
         return redirect(url_for('login'))
     name = session['name']
     if request.method == 'POST':
+        if 'file' not in request.files:
+            return redirect(url_for('personal_details'))
+        f = request.files['file']
+        filename = (secure_filename(f.filename))
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         gender = "female"
         if request.form.get('male'):
             gender = "male"
@@ -109,16 +104,20 @@ def personal_details():
                 i.admission_category = category
                 i.physically_challenged = handicapped
                 i.marital_status = marry
+                i.image_url = filename
                 db.session.commit()
                 break
         return redirect(url_for('parental_details'))
     student = Student.query.all()
+    filename = "user.png"
     for i in student:
         if i.roll_no == session['roll_no']:
             if i.gender != None:
                 return redirect(url_for('parental_details'))
+            if i.image_url != None:
+                filename = i.image_url
             break
-    return render_template('personal_detail.html',name=name,filename="3musketeer.jpg")
+    return render_template('personal_detail.html',name=name,filename=filename)
     
 
 @app.route('/parental_details',methods=['GET','POST'])
@@ -126,7 +125,6 @@ def personal_details():
 def parental_details():
     if 'name' not in session:
         return redirect(url_for('login'))
-    print "ss"
     name = session['name']
     if request.method == 'POST':
         fname=request.form['fname']
@@ -148,12 +146,15 @@ def parental_details():
                 break
         return redirect(url_for('contact'))
     student = Student.query.all()
+    filename = "user.png"
     for i in student:
         if i.roll_no == session['roll_no']:
             if i.father_name != None:
                 return redirect(url_for('contact'))
+            if i.image_url != None:
+                filename = i.image_url
             break
-    return render_template('parent_detail.html',name=name,filename="3musketeer.jpg")
+    return render_template('parent_detail.html',name=name,filename=filename)
 
 @app.route('/contact',methods=['GET','POST'])
 def contact():
@@ -172,12 +173,15 @@ def contact():
                 break
         return redirect(url_for('communication'))
     student = Student.query.all()
+    filename = "user.png"
     for i in student:
         if i.roll_no == session['roll_no']:
             if i.contact_no != None:
                 return redirect(url_for('communication'))
+            if i.image_url !=None:
+                filename = i.image_url
             break
-    return render_template('contact.html',name=name,filename="3musketeer.jpg")
+    return render_template('contact.html',name=name,filename=filename)
 
 @app.route('/communication',methods=['GET','POST'])
 
@@ -207,13 +211,16 @@ def communication():
                 break
         return redirect(url_for('qualified'))
     student = Student.query.all()
+    filename = "user.png"
     for i in student:
         if i.roll_no == session['roll_no']:
             if i.zip != None:
                 return redirect(url_for('qualified'))
+            if i.image_url != None:
+                filename = i.image_url
             break
-    return render_template('communication.html',name=name,filename="3musketeer.jpg")
-    
+    return render_template('communication.html',name=name,filename=filename)
+
 
 @app.route('/qualified',methods=['GET','POST'])
 def qualified():
@@ -238,13 +245,16 @@ def qualified():
                 break
         return redirect(url_for('academic_classX'))
     student = Student.query.all()
+    filename = "user.png"
     for i in student:
         if i.roll_no == session['roll_no']:
             if i.name_of_exam != None:
                 return redirect(url_for('academic_classX'))
+            if i.image_url != None:
+                filename = i.image_url
             break
-    return render_template('qualify.html',name=name,filename="3musketeer.jpg")
-    
+    return render_template('qualify.html',name=name,filename=filename)
+
 
 @app.route('/academic_classX',methods=['GET','POST'])
 def academic_classX():
@@ -269,13 +279,16 @@ def academic_classX():
                 break
         return redirect(url_for('academic_classXII'))
     student = Student.query.all()
+    filename = "user.png"
     for i in student:
         if i.roll_no == session['roll_no']:
             if i.x_board_name != None:
                 return redirect(url_for('academic_classXII'))
+            if i.image_url != None:
+                filename = i.image_url
             break
-    return render_template('classX.html',name=name,filename="3musketeer.jpg")
-    
+    return render_template('classX.html',name=name,filename=filename)
+
 
 @app.route('/academic_classXII',methods=['GET','POST'])
 def academic_classXII():
@@ -300,49 +313,34 @@ def academic_classXII():
                 break
         return redirect(url_for('dashboard'))
     student = Student.query.all()
+    filename = "user.png"
     for i in student:
         if i.roll_no == session['roll_no']:
             if i.xii_board_name != None:
                 return redirect(url_for('dashboard'))
+            if i.image_url != None :
+                filename = i.image_url
             break
-    return render_template('classXII.html',name=name,filename="3musketeer.jpg")
-    
+    return render_template('classXII.html',name=name,filename=filename)
+
 @app.route('/dashboard')
 def dashboard():
     if 'name' in session:
         person = Student.query.all()
+        filename="user.png"
         for i in person:
             if i.roll_no == session['roll_no']:
-               session['gender']=i.gender
-               session['dob']=i.date_of_birth
-               session['contact']=i.contact_no
-               session['category']= i.admission_category
-               session['acategory']=i.admission_category
-               break
+                session['gender']=i.gender
+                session['dob']=i.date_of_birth
+                session['contact']=i.contact_no
+                session['category']= i.admission_category
+                session['acategory']=i.admission_category
+                if i.image_url != None :
+                    filename = i.image_url
+                break
         name = session['name']
-        return render_template('dashboard.html',name=name,filename="3musketeer.jpg")
+        return render_template('dashboard.html',name=name,filename=filename)
     return redirect(url_for('login'))
-
-@app.route('/dikhade')
-def dikhade():
-   return render_template('display.html',filename="3musketeer.jpg")
-
-@app.route('/akshat')
-def akshat():
-   return render_template('dashboard_test.html')
-
-
-@app.route('/uploader', methods = ['GET', 'POST'])
-def upload_file():
-   if request.method == 'POST':
-      f = request.files['file']
-      filename = (secure_filename(f.filename))
-      f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-      signature = uploaded(name=filename)
-      db.session.add(signature)
-      db.session.commit()
-      return 'file uploaded successfully'
-
 
 @app.route('/register',methods=['GET','POST'])
 
@@ -351,10 +349,10 @@ def register():
         name = request.form['Name']
         email  = request.form['Email']
         password = request.form['Password']
-        signature = Student(name=name,email=email,password=password)
+        signature = Student(name=name,email=email,password=password,semester="1")
         db.session.add(signature)
         db.session.commit()
-        return render_template("thanks.html")
+        return redirect(url_for('login'))
     return render_template("register.html",name="")
     
 @app.route('/login',methods=['GET','POST'])
