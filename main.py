@@ -6,7 +6,7 @@ from werkzeug import secure_filename
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:taru9668@localhost/studentPortal'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:ptw161@akj011@localhost/StudentPortal'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)  
 UPLOAD_FOLDER = './uploads'
@@ -98,6 +98,8 @@ def personal_details():
             category = "ST"
         if request.form.get('obc'):
             category = "OBC"
+        if category == "" or national == "" or dob == "" or gender == "" or handicapped == "" or marry == "" :
+            return redirect(url_for('personal_details'))
         student = Student.query.all()
         for i in student:
             if i.roll_no == session['roll_no']:
@@ -109,24 +111,59 @@ def personal_details():
                 i.marital_status = marry
                 db.session.commit()
                 break
-        return redirect(url_for('communication'))
+        return redirect(url_for('parental_details'))
+    student = Student.query.all()
+    for i in student:
+        if i.roll_no == session['roll_no']:
+            if i.gender != None:
+                return redirect(url_for('parental_details'))
+            break
     return render_template('personal_detail.html',name=name,filename="3musketeer.jpg")
     
 
-@app.route('/parental_details')
+@app.route('/parental_details',methods=['GET','POST'])
+
 def parental_details():
-    if 'name' in session:
-        name = session['name']
-        return render_template('parent_detail.html',name=name,filename="3musketeer.jpg")
-    return redirect(url_for('login'))
+    if 'name' not in session:
+        return redirect(url_for('login'))
+    print "ss"
+    name = session['name']
+    if request.method == 'POST':
+        fname=request.form['fname']
+        mname=request.form['mname']
+        gname=request.form['gname']
+        gemail=request.form['gemail']
+        gmobile=request.form['gmobile']
+        if gemail == "" or fname == "" or mname == "" or gname == "" or gmobile == "":
+            return redirect(url_for('parental_details'))
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no']:
+                i.father_name = fname
+                i.mother_name = mname
+                i.guardian_name = gname
+                i.guardian_contact_no = gmobile
+                i.guardian_email_id = gemail
+                db.session.commit()
+                break
+        return redirect(url_for('contact'))
+    student = Student.query.all()
+    for i in student:
+        if i.roll_no == session['roll_no']:
+            if i.father_name != None:
+                return redirect(url_for('contact'))
+            break
+    return render_template('parent_detail.html',name=name,filename="3musketeer.jpg")
 
 @app.route('/contact',methods=['GET','POST'])
 def contact():
     if 'name' not in session:
         return redirect(url_for('login'))
+    name = session['name']
     if request.method == 'POST':
-        name = session['name']
         contact = request.form['contact_no']
+        if contact == "" :
+            return redirect(url_for('parental_details'))
         student = Student.query.all()
         for i in student:
             if i.roll_no == session['roll_no']:
@@ -140,36 +177,136 @@ def contact():
             if i.contact_no != None:
                 return redirect(url_for('communication'))
             break
-    return render_template('contact.html',name=session['name'],filename="3musketeer.jpg",contact="eg: 7060882020")
+    return render_template('contact.html',name=name,filename="3musketeer.jpg")
 
-@app.route('/communication')
+@app.route('/communication',methods=['GET','POST'])
+
 def communication():
-    if 'name' in session:
-        name = session['name']
-        return render_template('communication.html',name=name,filename="3musketeer.jpg")
-    return redirect(url_for('login'))
+    if 'name' not in session:
+        return redirect(url_for('login'))
+    name = session['name']
+    if request.method == 'POST' :
+        address=request.form['address']
+        address=address+request.form['line2']
+        address=address+request.form['line3']
+        city=request.form['city']
+        state=request.form['state']
+        zip=request.form['zip']
+        country=request.form['country']
+        if address == "" or city == "" or state == "" or zip == "" or country == "" :
+            return redirect(url_for('communication'))
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no']:
+                i.address = address
+                i.city = city
+                i.state = state
+                i.zip = zip
+                i.country = country
+                db.session.commit()
+                break
+        return redirect(url_for('qualified'))
+    student = Student.query.all()
+    for i in student:
+        if i.roll_no == session['roll_no']:
+            if i.zip != None:
+                return redirect(url_for('qualified'))
+            break
+    return render_template('communication.html',name=name,filename="3musketeer.jpg")
+    
 
-@app.route('/qualified')
+@app.route('/qualified',methods=['GET','POST'])
 def qualified():
-    if 'name' in session:
-        name = session['name']
-        return render_template('qualify.html',name=name,filename="3musketeer.jpg")
-    return redirect(url_for('login'))
+    if 'name' not in session:
+        return redirect(url_for('login'))
+    name = session['name']
+    if request.method == 'POST' :
+        exam=request.form['exam']
+        marks=request.form['marks']
+        rank=request.form['rank']
+        branch=request.form['branch']
+        if exam == "" or marks == "" or rank == "" or branch == "" :
+            return redirect(url_for('qualified'))
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no']:
+                i.name_of_exam = exam
+                i.exam_marks = marks
+                i.exam_rank = rank
+                i.branch = branch
+                db.session.commit()
+                break
+        return redirect(url_for('academic_classX'))
+    student = Student.query.all()
+    for i in student:
+        if i.roll_no == session['roll_no']:
+            if i.name_of_exam != None:
+                return redirect(url_for('academic_classX'))
+            break
+    return render_template('qualify.html',name=name,filename="3musketeer.jpg")
+    
 
-@app.route('/academic_classX')
+@app.route('/academic_classX',methods=['GET','POST'])
 def academic_classX():
-    if 'name' in session:
-        name = session['name']
-        return render_template('classX.html',name=name,filename="3musketeer.jpg")
-    return redirect(url_for('login'))
+    if 'name' not in session:
+        return redirect(url_for('login'))
+    name = session['name']
+    if request.method == 'POST' :
+        year=request.form['year']
+        school=request.form['school']
+        board=request.form['board']
+        percent=request.form['percent']
+        if year == "" or school == "" or board == "" or percent == "" :
+            return redirect(url_for('academic_classX'))
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no']:
+                i.x_passing_year = year
+                i.x_school_name = school
+                i.x_board_name = board
+                i.x_grade = percent
+                db.session.commit()
+                break
+        return redirect(url_for('academic_classXII'))
+    student = Student.query.all()
+    for i in student:
+        if i.roll_no == session['roll_no']:
+            if i.x_board_name != None:
+                return redirect(url_for('academic_classXII'))
+            break
+    return render_template('classX.html',name=name,filename="3musketeer.jpg")
+    
 
-@app.route('/academic_classXII')
+@app.route('/academic_classXII',methods=['GET','POST'])
 def academic_classXII():
-    if 'name' in session:
-        name = session['name']
-        return render_template('classXII.html',name=name,filename="3musketeer.jpg")
-    return redirect(url_for('login'))
-
+    if 'name' not in session:
+        return redirect(url_for('login'))
+    name = session['name']
+    if request.method =='POST' :
+        year=request.form['year']
+        school=request.form['school']
+        board=request.form['board']
+        percent=request.form['percent']
+        if year == "" or school == "" or board == "" or percent == "" :
+            return redirect(url_for('academic_classXII'))
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no']:
+                i.xii_passing_year = year
+                i.xii_school_name = school
+                i.xii_board_name = board
+                i.xii_grade = percent
+                db.session.commit()
+                break
+        return redirect(url_for('dashboard'))
+    student = Student.query.all()
+    for i in student:
+        if i.roll_no == session['roll_no']:
+            if i.xii_board_name != None:
+                return redirect(url_for('dashboard'))
+            break
+    return render_template('classXII.html',name=name,filename="3musketeer.jpg")
+    
 @app.route('/dashboard')
 def dashboard():
     if 'name' in session:
