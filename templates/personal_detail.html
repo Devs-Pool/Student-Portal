@@ -120,7 +120,7 @@
         <!-- page content -->
         <div class="right_col" role="main">
 
-         <form class="form-horizontal form-label-left input_mask" action="/personal_details" method="POST">
+         <form class="form-horizontal form-label-left input_mask" action="/personal_details" method="POST" enctype = "multipart/form-data">
 
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Full Name </label>
@@ -183,7 +183,14 @@
                     <input type="text" class="form-control" placeholder="Country Name" name="getcountry">
                   </div>
               </div>
-          <div class="ln_solid"></div>
+              <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Upload Profile Picture </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type = "file" name = "file" margin-left="30px" />
+                </div>
+              </div>
+          <div class="ln_solid">  
+          </div>
           <div class="form-group">
             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
               <button class="btn btn-primary" type="reset">Reset</button>

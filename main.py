@@ -50,17 +50,7 @@ class Student(db.Model):
     xii_grade=db.Column(db.String(30))
 
     #  create table student(name char(30), email char(30) unique,  password  char(30),  image_url char(100),  contact_no char(12), father_name char(30),  mother_name char(30), guardian_name char(30), guardian_contact_no char(30), guardian_email_id char(30),date_of_birth char(8),gender char(10), admission_category char(10), physically_challenged char(10),  nationality char(30), marital_status char(30), address char(200), city char(30), state char(30), zip char(30), country char(30), name_of_exam char(30), exam_marks char(30), exam_rank char(30), semester int, branch char(30), roll_no INT PRIMARY KEY AUTO_INCREMENT,  x_passing_year char(30), x_school_name char(30), x_board_name char(30), x_grade char(30), xii_passing_year char(30), xii_school_name char(30), xii_board_name char(30), xii_grade char(30));
-class Reference(db.Model):
-    email = db.Column(db.String(50),primary_key = True)
 
-class uploaded(db.Model):
-    name = db.Column(db.String(50),primary_key=True)
-
-
-
-@app.route('/upload')
-def upload():
-   return send_from_directory('uploads',"3musketeer.jpg",as_attachment=True)
 
 @app.route('/logout')
 def logout():
@@ -78,6 +68,9 @@ def personal_details():
         return redirect(url_for('login'))
     name = session['name']
     if request.method == 'POST':
+        f = request.files['file']
+        filename = (secure_filename(f.filename))
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         gender = "female"
         if request.form.get('male'):
             gender = "male"
@@ -107,17 +100,30 @@ def personal_details():
                 i.admission_category = category
                 i.physically_challenged = handicapped
                 i.marital_status = marry
+                i.image_url = filename
                 db.session.commit()
                 break
         return redirect(url_for('communication'))
-    return render_template('personal_detail.html',name=name,filename="3musketeer.jpg")
+    filename = "user.png"
+    student = Student.query.all()
+    for i in student:
+        if i.roll_no == session['roll_no'] and i.image_url != None:
+            filename = i.image_url
+            break
+    return render_template('personal_detail.html',name=name,filename=filename)
     
 
 @app.route('/parental_details')
 def parental_details():
     if 'name' in session:
         name = session['name']
-        return render_template('parent_detail.html',name=name,filename="3musketeer.jpg")
+        filename = "user.png"
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no'] and i.image_url != None:
+                filename = i.image_url
+                break
+        return render_template('parent_detail.html',name=name,filename=filename)
     return redirect(url_for('login'))
 
 @app.route('/contact',methods=['GET','POST'])
@@ -135,8 +141,11 @@ def contact():
                 break
         return redirect(url_for('communication'))
     student = Student.query.all()
+    filename = "user.png"
     for i in student:
         if i.roll_no == session['roll_no']:
+            if i.image_url !=None:
+                filename = i.image_url
             if i.contact_no != None:
                 return redirect(url_for('communication'))
             break
@@ -146,34 +155,59 @@ def contact():
 def communication():
     if 'name' in session:
         name = session['name']
-        return render_template('communication.html',name=name,filename="3musketeer.jpg")
+        filename = "user.png"
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no'] and i.image_url != None:
+                filename = i.image_url
+                break
+        return render_template('communication.html',name=name,filename=filename)
     return redirect(url_for('login'))
 
 @app.route('/qualified')
 def qualified():
     if 'name' in session:
         name = session['name']
-        return render_template('qualify.html',name=name,filename="3musketeer.jpg")
+        filename = "user.png"
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no'] and i.image_url != None:
+                filename = i.image_url
+                break
+        return render_template('qualify.html',name=name,filename=filename)
     return redirect(url_for('login'))
 
 @app.route('/academic_classX')
 def academic_classX():
     if 'name' in session:
         name = session['name']
-        return render_template('classX.html',name=name,filename="3musketeer.jpg")
+        filename = "user.png"
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no'] and i.image_url != None:
+                filename = i.image_url
+                break
+        return render_template('classX.html',name=name,filename=filename)
     return redirect(url_for('login'))
 
 @app.route('/academic_classXII')
 def academic_classXII():
     if 'name' in session:
         name = session['name']
-        return render_template('classXII.html',name=name,filename="3musketeer.jpg")
+        filename = "user.png"
+        student = Student.query.all()
+        for i in student:
+            if i.roll_no == session['roll_no'] and i.image_url != None:
+                filename = i.image_url
+                break
+        return render_template('classXII.html',name=name,filename=filename)
     return redirect(url_for('login'))
 
 @app.route('/dashboard')
 def dashboard():
     if 'name' in session:
         person = Student.query.all()
+        filename="user.png"
         for i in person:
             if i.roll_no == session['roll_no']:
                session['gender']=i.gender
@@ -181,31 +215,11 @@ def dashboard():
                session['contact']=i.contact_no
                session['category']= i.admission_category
                session['acategory']=i.admission_category
+               filename = i.image_url
                break
         name = session['name']
-        return render_template('dashboard.html',name=name,filename="3musketeer.jpg")
+        return render_template('dashboard.html',name=name,filename=filename)
     return redirect(url_for('login'))
-
-@app.route('/dikhade')
-def dikhade():
-   return render_template('display.html',filename="3musketeer.jpg")
-
-@app.route('/akshat')
-def akshat():
-   return render_template('dashboard_test.html')
-
-
-@app.route('/uploader', methods = ['GET', 'POST'])
-def upload_file():
-   if request.method == 'POST':
-      f = request.files['file']
-      filename = (secure_filename(f.filename))
-      f.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-      signature = uploaded(name=filename)
-      db.session.add(signature)
-      db.session.commit()
-      return 'file uploaded successfully'
-
 
 @app.route('/register',methods=['GET','POST'])
 
