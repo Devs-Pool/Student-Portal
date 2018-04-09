@@ -6,7 +6,7 @@ from werkzeug import secure_filename
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:ptw161@akj011@localhost/StudentPortal'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:taru9668@localhost/studentPortal'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)  
 UPLOAD_FOLDER = './uploads'
