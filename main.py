@@ -12,6 +12,7 @@ db = SQLAlchemy(app)
 UPLOAD_FOLDER = './uploads'
 app.secret_key = 'njsdnjsd'
 app.config['UPLOAD_FOLDER']=UPLOAD_FOLDER
+
 class Student(db.Model):
     name = db.Column(db.String(50))
     email = db.Column(db.String(30))
@@ -49,7 +50,27 @@ class Student(db.Model):
     xii_board_name=db.Column(db.String(30))
     xii_grade=db.Column(db.String(30))
 
-    #  create table student(name char(30), email char(30) unique,  password  char(30),  image_url char(100),  contact_no char(12), father_name char(30),  mother_name char(30), guardian_name char(30), guardian_contact_no char(30), guardian_email_id char(30),date_of_birth char(8),gender char(10), admission_category char(10), physically_challenged char(10),  nationality char(30), marital_status char(30), address char(200), city char(30), state char(30), zip char(30), country char(30), name_of_exam char(30), exam_marks char(30), exam_rank char(30), semester int, branch char(30), roll_no INT PRIMARY KEY AUTO_INCREMENT,  x_passing_year char(30), x_school_name char(30), x_board_name char(30), x_grade char(30), xii_passing_year char(30), xii_school_name char(30), xii_board_name char(30), xii_grade char(30));
+class Courses(db.Model):
+    cid = db.Column(db.String(30),primary_key=True)
+    cname = db.Column(db.String(30))
+    ccredits = db.Column(db.Integer())
+    semester = db.Column(db.Integer())
+    teacherid = db.Column(db.String(30))
+
+# create table student(name char(30), email char(30) unique,  password  char(30),  image_url char(100),  contact_no char(12), father_name char(30),  mother_name char(30), guardian_name char(30), guardian_contact_no char(30), guardian_email_id char(30),date_of_birth char(8),gender char(10), admission_category char(10), physically_challenged char(10),  nationality char(30), marital_status char(30), address char(200), city char(30), state char(30), zip char(30), country char(30), name_of_exam char(30), exam_marks char(30), exam_rank char(30), semester int, branch char(30), roll_no INT PRIMARY KEY AUTO_INCREMENT,  x_passing_year char(30), x_school_name char(30), x_board_name char(30), x_grade char(30), xii_passing_year char(30), xii_school_name char(30), xii_board_name char(30), xii_grade char(30));
+# create table courses(cid char(30) primary key, cname char(30), ccredits int, semester int, teacherid char(30));
+#insert into courses values(SMAT130C, Maths, 3, 1, ABAB);
+#insert into courses values('IITP132C', 'Introduction to programming' , 5, 1, 'VKC');
+#insert into courses values('SPAS230C', 'Probability and Statistics', 3, 2, 'ABAB');
+#insert into courses values('IDST232C', 'Data Structures and ALgorithms', 5, 2, 'BSS');
+#insert into courses values('SMAT332C', 'Maths 2', 3, 3, 'ABAB');
+#insert into courses values('IOOM332C', 'Object Orientation and Methodology', 5, 3, 'RK');
+#insert into courses values('SMAT430C', 'Maths 3', 3, 4, 'Mary Samuel');
+#insert into courses values('IDBM432C', 'Database Management Systems', 5, 4, 'Shikha Gautam');
+
+
+
+
 
 
 @app.route('/logout')
@@ -335,11 +356,22 @@ def dashboard():
                 session['contact']=i.contact_no
                 session['category']= i.admission_category
                 session['acategory']=i.admission_category
+                session['semester']=i.semester
                 if i.image_url != None :
                     filename = i.image_url
                 break
+        course = Courses.query.all()
+        course1='No courses to Show'
+        course2=''
+        for i in course:
+            if i.semester is not None:
+                if i.semester == session['semester']:
+                    if course1 == 'No courses to Show':
+                        course1 = "1. "+i.cid+" "+i.cname
+                        continue
+                    course2 = "2. "+i.cid+" "+i.cname
         name = session['name']
-        return render_template('dashboard.html',name=name,filename=filename)
+        return render_template('dashboard.html',name=name,filename=filename,course1=course1,course2=course2)
     return redirect(url_for('login'))
 
 @app.route('/register',methods=['GET','POST'])
