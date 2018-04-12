@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Student Portal </title>
+
+    <!-- Bootstrap -->
+    <link href="../static/portal/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../static/portal/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../static/portal/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../static/portal/iCheck/skins/flat/green.css" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="../static/portal/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../static/portal/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="../static/portal/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="../static/portal/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../static/css/build_css/custom.min.css" rel="stylesheet">
+    
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/dashboard" class="site_title"> <span>Teacher Portal</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+                <div class="profile_pic">
+                    
+                    <img src="{{url_for('display',filename='user.png' ,mode='fit')}}" width="60", height="60" class="img-circle profile_img">
+                </div>
+                <div class="profile_info">
+                  <span>Welcome,</span>
+                  <h2>Teacher</h2>
+                </div>
+              </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">
+                  <h3>General</h3>
+                  <ul class="nav side-menu">
+                    <li><a href="/admin_courses"><i class="fa fa-edit"></i> Marks Allotment </a></li>
+                    <li><a href="/admin_students"><i class="fa fa-edit"></i> Courses Assigned </a></li>
+                  </ul>
+                </div>
+              </div>
+            <!-- /sidebar menu -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="../static/images/user.png" alt="">Teacher
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="boxed" style="background-color: white ; height: 800px; border: 1px solid rgb(221, 217, 217);margin-top:10px;">
+              <div style="margin-top:10px;margin-left:10px;">
+                  <hr style="display: block;
+                  margin-top: 0.7em;
+                  margin-bottom: 0.7em; 
+                  margin-left: auto;
+                  margin-right: auto;
+                  border-style: inset;
+                  border-width: 0.5px;">
+
+                  <div class="boxed1" style="background-color: white ; height: 400px;width:500px; border: 1px solid rgb(207, 205, 205);margin-top:10px;float: left;margin-left:20px;">
+                      <div style="margin-top:10px;margin-left:10px;">
+                        <div class="form-group">
+                          <h4><label style="margin-left: 100px">Courses Assigned </label></h4>
+                        </div>
+                        <hr style="display: block;
+                        margin-top: 0.7em;
+                        margin-bottom: 0.7em;
+                        margin-left: auto;
+                        margin-right: auto;
+                        border-style: inset;
+                        border-width: 0.5px;">
+                        <br>
+                        IDBM432C
+                        <br>
+                        ICOA232C
+                        <br>
+                        EDES232C
+                        <br>
+                        SMAT432C
+                        <br>
+                      </div>
+                  </div>
+              </div>
+            </div>
+        </div>
+        
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Student Portal by <a href="">Devspool </a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="{{url_for('static', filename='portal/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{url_for('static', filename='portal/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <!-- FastClick -->
+    <script src="{{url_for('static', filename='portal/fastclick/lib/fastclick.js')}}"></script>
+    <!-- NProgress -->
+    <script src="{{url_for('static', filename='portal/nprogress/nprogress.js')}}"></script>
+    <!-- Chart.js -->
+    <script src="{{url_for('static', filename='portal/Chart.js/dist/Chart.min.js')}}"></script>
+    <!-- gauge.js -->
+    <script src="{{url_for('static', filename='portal/gauge.js/dist/gauge.min.js')}}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{url_for('static', filename='portal/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+    <!-- iCheck -->
+    <script src="{{url_for('static', filename='portal/iCheck/icheck.min.js')}}"></script>
+    <!-- Skycons -->
+    <script src="{{url_for('static', filename='portal/skycons/skycons.js')}}"></script>
+    <!-- Flot -->
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.pie.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.time.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.stack.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.resize.js')}}"></script>
+    <!-- Flot plugins -->
+    <script src="{{url_for('static', filename='portal/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/flot.curvedlines/curvedLines.js')}}"></script>
+    <!-- DateJS -->
+    <script src="{{url_for('static', filename='portal/DateJS/build/date.js')}}"></script>
+    <!-- JQVMap -->
+    <script src="{{url_for('static', filename='portal/jqvmap/dist/jquery.vmap.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{url_for('static', filename='portal/moment/min/moment.min.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src="../static/portal/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{{url_for('static', filename='js/custom.min.js')}}"></script>	
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+    <script>
+      $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+          format: 'mm/dd/yyyy',
+          container: container,
+          todayHighlight: true,
+          autoclose: true,
+        })
+      })
+    </script>
+  </body>
+</html>
