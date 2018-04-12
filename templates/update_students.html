@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Student Portal </title>
+
+    <!-- Bootstrap -->
+    <link href="../static/portal/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="../static/portal/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="../static/portal/nprogress/nprogress.css" rel="stylesheet">
+    <!-- iCheck -->
+    <link href="../static/portal/iCheck/skins/flat/green.css" rel="stylesheet">
+	
+    <!-- bootstrap-progressbar -->
+    <link href="../static/portal/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">
+    <!-- JQVMap -->
+    <link href="../static/portal/jqvmap/dist/jqvmap.min.css" rel="stylesheet"/>
+    <!-- bootstrap-daterangepicker -->
+    <link href="../static/portal/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+    <!-- bootstrap-datetimepicker -->
+    <link href="../static/portal/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <!-- Custom Theme Style -->
+    <link href="../static/css/build_css/custom.min.css" rel="stylesheet">
+  </head>
+
+  <body class="nav-md">
+    <div class="container body">
+      <div class="main_container">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="/admin_courses" class="site_title"> <span>Admin Portal</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+            <div class="profile clearfix">
+              <div class="profile_pic">
+                  
+                  <img src="{{url_for('display',filename='user.png' ,mode='fit')}}" width="60", height="60" class="img-circle profile_img">
+              </div>
+              <div class="profile_info">
+                <span>Welcome,</span>
+                <h2>Admin</h2>
+              </div>
+            </div>
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+                <div class="menu_section">
+                  <h3>General</h3>
+                  <ul class="nav side-menu">
+                    <li><a href="/admin_courses"><i class="fa fa-home"></i> Courses </a></li>
+                    <li><a href="/admin_students"><i class="fa fa-edit"></i> Students </a></li>
+                  </ul>
+                </div>
+              </div>
+            <!-- /sidebar menu -->
+          </div>
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+          <div class="nav_menu">
+            <nav>
+              <div class="nav toggle">
+                <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+              </div>
+
+              <ul class="nav navbar-nav navbar-right">
+                <li class="">
+                  <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <img src="../static/images/user.png" alt="">Admin
+                    <span class=" fa fa-angle-down"></span>
+                  </a>
+                  <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        
+        <div class="right_col" role="main">
+
+          <h4 style="color: red; font-weight: bold;">{{ message }}</h4>
+         <form  class="form-horizontal form-label-left input_mask" action="{{ url_for('.admin_students') }}" method="POST">
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Student - Unique ID </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="sid" class="form-control" placeholder="eg: 14">
+                </div>
+            </div>  
+            <div class="ln_solid"></div>
+            <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                  <button class="btn btn-primary" type="reset">Reset</button>
+                  <button type="submit" class="btn btn-success">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="ln_solid"></div>
+        <form  class="form-horizontal form-label-left input_mask" action="{{ url_for('.update_students',sid=sid) }}" method="POST">
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="name" class="form-control" placeholder="{{ name }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Email </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="email" class="form-control" placeholder="{{ email }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Password </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="password" class="form-control" placeholder="Set New Password here">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Contact Number </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="contact" class="form-control" placeholder="{{ contact }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Father's name </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="fname" class="form-control" placeholder="{{ fname }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Mother's Name </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="mname" class="form-control" placeholder="{{ mname }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian's Name </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="gname" class="form-control" placeholder="{{ gname }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian's Contact Number </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="gcontact" class="form-control" placeholder="{{ gcontact }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Guardian's Email </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="gemail" class="form-control" placeholder="{{ gemail }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Date Of Birth </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="dob" class="form-control" placeholder="{{ dob }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Gender </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="gender" class="form-control" placeholder="{{ gender }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Admission Category </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="acat" class="form-control" placeholder="{{ acat }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Physically Challanged </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="physical" class="form-control" placeholder="{{ physical }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Nationality </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="nationality" class="form-control" placeholder="{{ nationality }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Marital Status </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="mstatus" class="form-control" placeholder="{{ mstatus }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Address </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="address" class="form-control" placeholder="{{ address }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">City </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="city" class="form-control" placeholder="{{ city }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">State </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="state" class="form-control" placeholder="{{ state }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Zip </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="zip" class="form-control" placeholder="{{ zip }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Country </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="country" class="form-control" placeholder="{{ country }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Name of Exam </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="examname" class="form-control" placeholder="{{ examname }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Exam Marks </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="exammarks" class="form-control" placeholder="{{ exammarks }}">
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Exam Rank </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="examrank" class="form-control" placeholder="{{ examrank }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Semester </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="semester" class="form-control" placeholder="{{ semester }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Branch </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="branch" class="form-control" placeholder="{{ branch }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Xyear </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="xyear" class="form-control" placeholder="{{ xyear }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Xschool </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="xschool" class="form-control" placeholder="{{ xschool }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Xboard </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="xboard" class="form-control" placeholder="{{ xboard }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Xgrade </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="xgrade" class="form-control" placeholder="{{ xgrade }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">XIIyear </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="xiiyear" class="form-control" placeholder="{{ xiiyear }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">XIIschool </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="xiischool" class="form-control" placeholder="{{ xiischool }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">XIIboard </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="xiiboard" class="form-control" placeholder="{{ xiiboard }}">
+                </div>
+            </div>  
+            <div class="form-group">
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">XIIgrade </label>
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <input type="text" name="xiigrade" class="form-control" placeholder="{{ xiigrade }}">
+                </div>
+            </div>  
+            <div class="ln_solid"></div>
+            <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                  <button class="btn btn-primary" type="reset">Reset</button>
+                  <button type="submit" class="btn btn-success">Update</button>
+                </div>
+            </div>
+        </form>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+          <div class="pull-right">
+            Student Portal by <a href="">Devspool </a>
+          </div>
+          <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="{{url_for('static', filename='portal/jquery/dist/jquery.min.js')}}"></script>
+    <!-- Bootstrap -->
+    <script src="{{url_for('static', filename='portal/bootstrap/dist/js/bootstrap.min.js')}}"></script>
+    <!-- FastClick -->
+    <script src="{{url_for('static', filename='portal/fastclick/lib/fastclick.js')}}"></script>
+    <!-- NProgress -->
+    <script src="{{url_for('static', filename='portal/nprogress/nprogress.js')}}"></script>
+    <!-- Chart.js -->
+    <script src="{{url_for('static', filename='portal/Chart.js/dist/Chart.min.js')}}"></script>
+    <!-- gauge.js -->
+    <script src="{{url_for('static', filename='portal/gauge.js/dist/gauge.min.js')}}"></script>
+    <!-- bootstrap-progressbar -->
+    <script src="{{url_for('static', filename='portal/bootstrap-progressbar/bootstrap-progressbar.min.js')}}"></script>
+    <!-- iCheck -->
+    <script src="{{url_for('static', filename='portal/iCheck/icheck.min.js')}}"></script>
+    <!-- Skycons -->
+    <script src="{{url_for('static', filename='portal/skycons/skycons.js')}}"></script>
+    <!-- Flot -->
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.pie.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.time.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.stack.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/Flot/jquery.flot.resize.js')}}"></script>
+    <!-- Flot plugins -->
+    <script src="{{url_for('static', filename='portal/flot.orderbars/js/jquery.flot.orderBars.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/flot-spline/js/jquery.flot.spline.min.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/flot.curvedlines/curvedLines.js')}}"></script>
+    <!-- DateJS -->
+    <script src="{{url_for('static', filename='portal/DateJS/build/date.js')}}"></script>
+    <!-- JQVMap -->
+    <script src="{{url_for('static', filename='portal/jqvmap/dist/jquery.vmap.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/jqvmap/dist/maps/jquery.vmap.world.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/jqvmap/examples/js/jquery.vmap.sampledata.js')}}"></script>
+    <!-- bootstrap-daterangepicker -->
+    <script src="{{url_for('static', filename='portal/moment/min/moment.min.js')}}"></script>
+    <script src="{{url_for('static', filename='portal/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
+    <!-- bootstrap-datetimepicker -->    
+    <script src="../static/portal/bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js"></script>
+    <!-- Custom Theme Scripts -->
+    <script src="{{url_for('static', filename='js/custom.min.js')}}"></script>	
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+  </body>
+</html>

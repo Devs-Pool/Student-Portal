@@ -95,62 +95,26 @@
         <!-- /top navigation -->
 
         <!-- page content -->
+        
         <div class="right_col" role="main">
 
-         <form class="form-horizontal form-label-left input_mask" action="{{ url_for('.admin_courses',cid='course') }}" method="POST">
+          <h4 style="color: red; font-weight: bold;">{{ name }}</h4>
+         <form  class="form-horizontal form-label-left input_mask" action="{{ url_for('.admin_students') }}" method="POST">
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Course ID </label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Student Unique ID </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" name="cid" class="form-control" placeholder="eg: IDBM432C">
+                  <input type="text" name="sid" class="form-control" placeholder="eg: 14">
                 </div>
             </div>  
             <div class="ln_solid"></div>
             <div class="form-group">
                 <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                   <button class="btn btn-primary" type="reset">Reset</button>
-                  <button type="submit" class="btn btn-success">Submit</button>
+                  <button type="submit" class="btn btn-success">Search</button>
                 </div>
             </div>
         </form>
-        <form class="form-horizontal form-label-left input_mask" style="margin-top: 60px" action="{{ url_for('.update_course',cid=cid) }}" method="POST">
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Course ID </label>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" disabled="disabled" name="cid" class="form-control" placeholder="{{ cid }}">
-                </div>
-            </div>  
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Course Name </label>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" disabled="disabled" name="cid" class="form-control" placeholder="{{ cname }}">
-                </div>
-            </div>  
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Course Credits </label>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" disabled="disabled" name="cid" class="form-control" placeholder="{{ ccredits }}">
-                </div>
-            </div>  
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Semester </label>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" disabled="disabled" name="cid" class="form-control" placeholder="{{ semester }}">
-                </div>
-            </div> 
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Assigned Teacher </label>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" name="tid" class="form-control" placeholder="{{ tid }}">
-                </div>
-            </div>  
-            <div class="ln_solid"></div>
-            <div class="form-group">
-                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                  <button class="btn btn-primary" type="reset">Reset</button>
-                  <button type="submit" class="btn btn-success">Change Teacher</button>
-                </div>
-            </div>
-        </form>
+        
         </div>
         <!-- /page content -->
 
