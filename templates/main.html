@@ -35,13 +35,15 @@
                     <input class="input section" type="password" placeholder="Password" required name="Password">
                     <div>
                         <input type="checkbox" id="Check1" name="teacher" onclick="selectOnlyThis(this.id)" />Teacher 
-                        <input type="checkbox" id="Check2" name="student" onclick="selectOnlyThis(this.id)" />Student   
+                        <input type="checkbox" checked="checked" id="Check2" name="student" onclick="selectOnlyThis(this.id)" />Student
+                        <input type="checkbox" id="Check3" name="admin" onclick="selectOnlyThis(this.id)" />Admin   
                     </div>
                     <button class="button black section" type="submit">
                       <i class="fa fa-paper-plane"></i> Login
                     </button>
                     <a href="register" style="margin-left: 20px"><u>New User?</u></a>
                   </form>
+                  <h3>{{name}}</h3>
                 </div>      
                 
              
@@ -54,7 +56,7 @@
                 myCenter=new google.maps.LatLng(25.429594, 81.770362);
                 var mapOptions= {
                   center:myCenter,
-                  zoom:12, scrollwheel: false, draggable: false,
+                  zoom:12, scrollwheel: true, draggable: true,
                   mapTypeId:google.maps.MapTypeId.ROADMAP
                 };
                 var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
@@ -73,7 +75,7 @@
         </body>
         <script>
           function selectOnlyThis(id) {
-            for (var i = 1;i <= 2; i++)
+            for (var i = 1;i <= 3; i++)
             {
               document.getElementById("Check" + i).checked = false;
             }

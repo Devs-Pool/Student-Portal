@@ -32,11 +32,16 @@
                       <input class="input section" type="text" placeholder="Email" required name="Email">
                       <input class="input section" type="password" placeholder="Password" required name="Password">
                       <input class="input section" type="password" placeholder="Confirm Password" required name="Confirm Password">
+                      <div>
+                        <input type="checkbox" id="Check1" name="teacher" onclick="selectOnlyThis(this.id)" />Teacher 
+                        <input type="checkbox" checked="checked" id="Check2" name="student" onclick="selectOnlyThis(this.id)" />Student   
+                      </div>
                       <button class="button black section" type="submit">
                         <i class="fa fa-paper-plane"></i> Sign up
                       </button>
                       <a href="login" style="margin-left: 20px"><u>Already Registered?</u></a>
                     </form>
+                    <h3>{{name}}</h3>
                   </div>
               
         
@@ -51,7 +56,7 @@
                 myCenter=new google.maps.LatLng(25.429594, 81.770362);
                 var mapOptions= {
                   center:myCenter,
-                  zoom:12, scrollwheel: false, draggable: false,
+                  zoom:12, scrollwheel: true, draggable: true,
                   mapTypeId:google.maps.MapTypeId.ROADMAP
                 };
                 var map=new google.maps.Map(document.getElementById("googleMap"),mapOptions);
