@@ -432,6 +432,9 @@ def update_students():
                 temp=request.form['email']
                 if temp != '':
                     i.email=temp
+                temp=request.form['password']
+                if temp != '':
+                    i.password=temp
                 temp=request.form['contact']
                 if temp != '':
                     i.contact_no=temp
@@ -492,8 +495,8 @@ def update_students():
                 temp=request.form['examrank']
                 if temp != '':
                     i.exam_rank=temp
-                try:
-                    temp=int(request.form['semester'])
+                temp=request.form['semester']
+                try:   
                     if temp != '':
                         i.semester=temp
                 except ValueError:
