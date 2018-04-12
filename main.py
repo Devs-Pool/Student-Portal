@@ -59,7 +59,7 @@ class Courses(db.Model):
 
 # create table student(name char(30), email char(30) unique,  password  char(30),  image_url char(100),  contact_no char(12), father_name char(30),  mother_name char(30), guardian_name char(30), guardian_contact_no char(30), guardian_email_id char(30),date_of_birth char(8),gender char(10), admission_category char(10), physically_challenged char(10),  nationality char(30), marital_status char(30), address char(200), city char(30), state char(30), zip char(30), country char(30), name_of_exam char(30), exam_marks char(30), exam_rank char(30), semester int, branch char(30), roll_no INT PRIMARY KEY AUTO_INCREMENT,  x_passing_year char(30), x_school_name char(30), x_board_name char(30), x_grade char(30), xii_passing_year char(30), xii_school_name char(30), xii_board_name char(30), xii_grade char(30));
 # create table courses(cid char(30) primary key, cname char(30), ccredits int, semester int, teacherid char(30));
-#insert into courses values(SMAT130C, Maths, 3, 1, ABAB);
+#insert into courses values('SMAT130C', 'Maths', 3, 1, 'ABAB');
 #insert into courses values('IITP132C', 'Introduction to programming' , 5, 1, 'VKC');
 #insert into courses values('SPAS230C', 'Probability and Statistics', 3, 2, 'ABAB');
 #insert into courses values('IDST232C', 'Data Structures and ALgorithms', 5, 2, 'BSS');
