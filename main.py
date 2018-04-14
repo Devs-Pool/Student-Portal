@@ -779,13 +779,28 @@ def teacher_dashboard():
 @app.route('/marks/<filename>')
 def marks(filename):
     filen="user.png"
+
+    courses = Courses.query.all()
+    l = []
+    l2 = []
+    for i in courses:
+        if str(i.semester) == filename:
+            l.append(i.cid)
+    mark = Marks.query.all()
+    for i in l:
+        for j in mark:
+            if j.sid == session['roll_no']:
+                if j.cid == i:
+                    a = i + " : " + str(j.marks)
+                    l2.append(a)
+
     person = Student.query.all()
     for i in person:
         if i.roll_no == session['roll_no']:
             if i.image_url != None :
                 filen = i.image_url
             break
-    return render_template('marks.html',filename=filen,semister=filename)
+    return render_template('marks.html',filename=filen,semister=filename,list1=l,list2=l2)
 
 @app.route('/register',methods=['GET','POST'])
 def register():
