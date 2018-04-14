@@ -411,6 +411,183 @@ def dashboard():
         return render_template('dashboard.html',name=name,filename=filename,course1=course1,course2=course2)
     return redirect(url_for('logout'))
 
+@app.route('/update_students',methods=['GET','POST'])
+def update_students():
+    if 'name' in session or 'tname' in session or 'aemail' not in session :
+        return redirect(url_for('logout'))
+    sid=0
+    try:
+        sid=int(request.args.get('sid'))
+    except ValueError:
+        return redirect(url_for('admin_students'))
+    message='No such Unique ID found'
+    if sid !='' and sid != None and request.method == 'POST' :
+        students=Student.query.all()
+        for i in students:
+            if i.roll_no == sid:
+                message = 'Student Details Updated Successfully'
+                temp=request.form['name']
+                if temp != '':
+                    i.name=temp
+                temp=request.form['email']
+                if temp != '':
+                    i.email=temp
+                temp=request.form['contact']
+                if temp != '':
+                    i.contact_no=temp
+                temp=request.form['fname']
+                if temp != '':
+                    i.father_name=temp
+                temp=request.form['mname']
+                if temp != '':
+                    i.mother_name=temp
+                temp=request.form['gname']
+                if temp != '':
+                    i.guardian_name=temp
+                temp=request.form['gcontact']
+                if temp != '':
+                    i.guardian_contact_no=temp
+                temp=request.form['gemail']
+                if temp != '':
+                    i.guardian_email_id=temp
+                temp=request.form['dob']
+                if temp != '':
+                    i.date_of_birth=temp
+                temp=request.form['gender']
+                if temp != '':
+                    i.gender=temp
+                temp=request.form['acat']
+                if temp != '':
+                    i.admission_category=temp
+                temp=request.form['physical']
+                if temp != '':
+                    i.physically_challenged=temp
+                temp=request.form['nationality']
+                if temp != '':
+                    i.nationality=temp
+                temp=request.form['mstatus']
+                if temp != '':
+                    i.marital_status=temp
+                temp=request.form['address']
+                if temp != '':
+                    i.address=temp
+                temp=request.form['city']
+                if temp != '':
+                    i.city=temp
+                temp=request.form['state']
+                if temp != '':
+                    i.state=temp
+                temp=request.form['zip']
+                if temp != '':
+                    i.zip=temp
+                temp=request.form['country']
+                if temp != '':
+                    i.country=temp
+                temp=request.form['examname']
+                if temp != '':
+                    i.name_of_exam=temp
+                temp=request.form['exammarks']
+                if temp != '':
+                    i.exam_marks=temp
+                temp=request.form['examrank']
+                if temp != '':
+                    i.exam_rank=temp
+                try:
+                    temp=int(request.form['semester'])
+                    if temp != '':
+                        i.semester=temp
+                except ValueError:
+                    message='invalid semester'
+                    break
+                temp=request.form['branch']
+                if temp != '':
+                    i.branch=temp
+                temp=request.form['xyear']
+                if temp != '':
+                    i.x_passing_year=temp
+                temp=request.form['xschool']
+                if temp != '':
+                    i.x_school_name=temp
+                temp=request.form['xboard']
+                if temp != '':
+                    i.x_board_name=temp
+                temp=request.form['xgrade']
+                if temp != '':
+                    i.x_grade=temp
+                temp=request.form['xiiyear']
+                if temp != '':
+                    i.xii_passing_year=temp
+                temp=request.form['xiischool']
+                if temp != '':
+                    i.xii_school_name=temp
+                temp=request.form['xiiboard']
+                if temp != '':
+                    i.xii_board_name=temp
+                temp=request.form['xiigrade']
+                if temp != '':
+                    i.xii_grade=temp
+                db.session.commit()
+    if sid !='' and sid != None and request.method == 'GET' :
+        students=Student.query.all()
+        for i in students :
+            if i.roll_no == sid :
+                name=i.name
+                email=i.email
+                contact=i.contact_no
+                fname=i.father_name
+                mname=i.mother_name
+                gname=i.guardian_name
+                gcontact=i.guardian_contact_no
+                gemail=i.guardian_email_id
+                dob=i.date_of_birth
+                gender=i.gender
+                acat=i.admission_category
+                physical=i.physically_challenged
+                nationality=i.nationality
+                mstatus=i.marital_status
+                address=i.address
+                city=i.city
+                state=i.state
+                zip=i.zip
+                country=i.country
+                examname=i.name_of_exam
+                exammarks=i.exam_marks
+                examrank=i.exam_rank
+                semester=i.semester
+                branch=i.branch
+                xyear=i.x_passing_year
+                xschool=i.x_school_name
+                xboard=i.x_board_name
+                xgrade=i.x_grade
+                xiiyear=i.xii_passing_year
+                xiischool=i.xii_school_name
+                xiiboard=i.xii_board_name
+                xiigrade=i.xii_grade
+                return render_template('update_students.html',name=name,email=email,contact=contact,fname=fname,mname=mname,gname=gname,gcontact=gcontact,gemail=gemail,dob=dob,gender=gender,acat=acat,physical=physical,nationality=nationality,mstatus=mstatus,address=address,city=city,state=state,zip=zip,country=country,examname=examname,exammarks=exammarks,examrank=examrank,semester=semester,branch=branch,xyear=xyear,xschool=xschool,xboard=xboard,xgrade=xgrade,xiischool=xiischool,xiiboard=xiiboard,xiigrade=xiigrade,xiiyear=xiiyear,sid=str(sid))
+    return redirect(url_for('admin_students',message=message))
+
+
+@app.route('/admin_students',methods=['GET','POST'])
+def admin_students():
+    if 'name' in session or 'tname' in session or 'aemail' not in session :
+        return redirect(url_for('logout'))
+    message=request.args.get('message')
+    if message == None:
+        message=''
+    if request.method == 'POST' :
+        sid=0
+        try:
+            sid = int(request.form['sid'])
+        except ValueError:
+            message='Invalid Unique ID'
+            return render_template('admin_students.html',name=message)
+        students = Student.query.all()
+        message='Invalid Unique ID'
+        for i in students :
+            if i.roll_no == sid :
+                return redirect(url_for('update_students',sid=str(sid)))
+    return render_template('admin_students.html',name=message)
+
 @app.route('/add_course',methods=['GET','POST'])
 def add_course():
     if 'name' in session or 'tname' in session or 'aemail' not in session :
@@ -459,11 +636,50 @@ def update_course():
     teacher = request.form['tid']
     if request.method == 'POST' :
         course = Courses.query.all()
+        teachers=Teachers.query.all()
+        found=False
+        for i in teachers :
+            if i.email == teacher:
+                found=True
+                break
         for i in course :
+            if not found:
+                cid='Teacher not found'
+                break
             if i.cid == cid :
                 i.teacherid = teacher
                 db.session.commit()
     return redirect(url_for('.admin_courses',cid=cid))
+
+@app.route('/promote', methods=['GET','POST'])
+def promote():
+    if 'name' in session or 'tname' in session or 'aemail' not in session :
+        return redirect(url_for('logout'))
+    message=''
+    if request.method == 'POST':
+        students=Student.query.all()
+        for i in students:
+            if i.semester == None:
+                i.semester = 0
+            i.semester=i.semester+1
+        db.session.commit()
+        message='Promoted Successfully'
+    return redirect(url_for('admin_courses',cid=message))
+
+@app.route('/demote', methods=['GET','POST'])
+def demote():
+    if 'name' in session or 'tname' in session or 'aemail' not in session :
+        return redirect(url_for('logout'))
+    message=''
+    if request.method == 'POST':
+        students=Student.query.all()
+        for i in students:
+            if i.semester == None:
+                i.semester = 0
+            i.semester=i.semester-1
+        db.session.commit()
+        message='Demoted Successfully'
+    return redirect(url_for('admin_courses',cid=message))
 
 @app.route('/admin_courses', methods=['GET','POST'])
 def admin_courses():
@@ -474,7 +690,7 @@ def admin_courses():
         if 'aemail' in session:
             if cid == 'course' or cid == '' or cid == None :
                 cid = ''
-            if cid == '' or cid == 'Course removed successfully' or cid == 'No such course exist' or cid == 'Course added successfully' or cid == 'Course id already exists' or cid == 'Semester must be an integer' :
+            if cid == '' or cid == 'Course removed successfully' or cid == 'No such course exist' or cid == 'Course added successfully' or cid == 'Course id already exists' or cid == 'Semester must be an integer' or cid == 'Teacher not found' or cid == 'Promoted Successfully' or cid == 'Demoted Successfully' :
                 return render_template('admin_courses.html',name=cid)
             course = Courses.query.all()
             for i in course :
