@@ -66,6 +66,12 @@ class Admin(db.Model):
     email = db.Column(db.String(30),primary_key=True)
     password = db.Column(db.String(30))
 
+class Marks(db.Model):
+    sno=db.Column(db.Integer(),primary_key=True)
+    cid=db.Column(db.String(30))
+    sid=db.Column(db.Integer())
+    marks=db.Column(db.Integer())
+
 # create table student(name char(30), email char(30) unique,  password  char(30),  image_url char(100),  contact_no char(12), father_name char(30),  mother_name char(30), guardian_name char(30), guardian_contact_no char(30), guardian_email_id char(30),date_of_birth char(8),gender char(10), admission_category char(10), physically_challenged char(10),  nationality char(30), marital_status char(30), address char(200), city char(30), state char(30), zip char(30), country char(30), name_of_exam char(30), exam_marks char(30), exam_rank char(30), semester int, branch char(30), roll_no INT PRIMARY KEY AUTO_INCREMENT,  x_passing_year char(30), x_school_name char(30), x_board_name char(30), x_grade char(30), xii_passing_year char(30), xii_school_name char(30), xii_board_name char(30), xii_grade char(30));
 
 # create table courses(cid char(30) primary key, cname char(30), ccredits int, semester int, teacherid char(30));
@@ -83,6 +89,8 @@ class Admin(db.Model):
 #create table admin(email char(30) primary key, password char(30));
 #insert into admin values('admin@iiitl.ac.in','admin@iiitl');
 
+#create table marks(sno int primary key auto_increment,cid char(30),sid int,marks int not null);
+
 @app.route('/logout')
 def logout():
    session.pop('email',None)
@@ -97,7 +105,7 @@ def logout():
    session.pop('acategory',None)
    session.pop('semester',None)
    session.pop('aemail',None)
-   return redirect(url_for('login'))
+   return redirect('/')
 
 
 @app.route('/display<filename>')
@@ -708,20 +716,67 @@ def admin_courses():
             return redirect(url_for('.admin_courses',cid='course'))
     return redirect(url_for('logout'))
 
-@app.route('/teacher_dashboard', methods=['GET','POST'])
+@app.route('/teacher_marks', methods=['GET','POST'])
+def teacher_marks():
+    if 'name' in session or 'aemail' in session or 'temail' not in session:
+        return redirect(url_for('logout'))
+    message=''
+    if request.method=='POST' :
+        cid=request.form['cid']
+        email=request.form['roll']
+        marks=0
+        try:
+            marks=int(request.form['marks'])
+        except ValueError:
+            return render_template('teacher_marks.html',message='Invalid Marks')
+        course=Courses.query.filter_by(cid=cid).first()
+        if course==None:
+            return render_template('teacher_marks.html',message='Invalid Course')
+        if course.teacherid!=session['temail']:
+            return render_template('teacher_marks.html',message='You are not assigned to the requested course')
+        student=Student.query.filter_by(email=email).first()
+        if student==None:
+            return render_template('teacher_marks.html',message='Invalid Student')
+        if student.semester < course.semester:
+            return render_template('teacher_marks.html',message='Student is not eligible to take the given course')
+        mrow=Marks.query.filter_by(cid=cid,sid=student.roll_no).first()
+        if mrow==None:
+            mrow=Marks(cid=cid,sid=student.roll_no,marks=marks)
+            db.session.add(mrow)
+            db.session.commit()
+        else:
+            mrow.marks=marks
+            db.session.commit()
+            message='Marks updated successfully'
+    return render_template('teacher_marks.html',message=message)
 
+@app.route('/teacher_dashboard', methods=['GET','POST'])
 def teacher_dashboard():
     if 'name' in session or 'aemail' in session:
         return redirect(url_for('logout'))
     if request.method == 'GET':
-        if 'tname' in session:
-            print session['tname']
-            print session['name']
-            return render_template('thanks.html')
+        count=0
+        c1=''
+        c2=''
+        c3=''
+        c4=''
+        if 'temail' in session:
+            courses=Courses.query.all()
+            for i in courses:
+                if i.teacherid==session['temail']:
+                    count=count+1
+                    if count==1:
+                        c1=str(count)+". "+i.cid+" "+i.cname
+                    if count==2:
+                        c2=str(count)+". "+i.cid+" "+i.cname
+                    if count==3:
+                        c3=str(count)+". "+i.cid+" "+i.cname
+                    if count==4:
+                        c4=str(count)+". "+i.cid+" "+i.cname
+            return render_template('teacher_course.html',course1=c1,course2=c2,course3=c3,course4=c4)
     return redirect(url_for('logout'))
 
 @app.route('/register',methods=['GET','POST'])
-
 def register():
     if 'tname' in session or 'name' in session or 'aemail' in session:
         return redirect(url_for('logout'))
@@ -784,6 +839,12 @@ def login():
                 return redirect(url_for('dashboard'))
         return render_template('main.html',name = "Yor are not a registered user!")
     return render_template('main.html',name="")
+
+@app.route('/',methods=['GET','POST'])
+def main():
+    if 'tname' in session or 'name' in session or 'aemail' in session:
+        return redirect(url_for('logout'))
+    return render_template('index.html')
 
 if __name__ == "__main__":
     app.run(debug=True)

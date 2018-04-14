@@ -61,8 +61,8 @@
                 <div class="menu_section">
                   <h3>General</h3>
                   <ul class="nav side-menu">
-                    <li><a href="/admin_courses"><i class="fa fa-edit"></i> Marks Allotment </a></li>
-                    <li><a href="/admin_students"><i class="fa fa-edit"></i> Courses Assigned </a></li>
+                    <li><a href="/teacher_dashboard"><i class="fa fa-edit"></i> Courses Assigned </a></li>
+                    <li><a href="/teacher_marks"><i class="fa fa-edit"></i> Marks Allotment </a></li>
                   </ul>
                 </div>
               </div>
@@ -98,8 +98,8 @@
         
         <div class="right_col" role="main">
 
-          
-         <form  class="form-horizontal form-label-left input_mask" action="{{ url_for('.admin_courses',cid='course') }}" method="POST">
+          <h4 style="color: red; font-weight: bold;">{{ message }}</h4>
+         <form  class="form-horizontal form-label-left input_mask" action="{{ url_for('.teacher_marks') }}" method='POST'>
             <div class="form-group">
                 <h4><label style="margin-left: 200px">Marks Allotment to Student </label></h4>
             </div>
@@ -110,15 +110,15 @@
                 </div>
             </div>  
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Student's Enrollment No </label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Student's Email ID </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" name="cid" class="form-control" placeholder="eg: LIT2016018">
+                  <input type="text" name="roll" class="form-control" placeholder="eg: it2016@iiitl.ac.in">
                 </div>
             </div>
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">Updated Marks(out of 100) </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" name="cid" class="form-control" placeholder="eg: 90">
+                  <input type="text" name="marks" class="form-control" placeholder="eg: 90">
                 </div>
             </div>
             <div class="ln_solid"></div>
