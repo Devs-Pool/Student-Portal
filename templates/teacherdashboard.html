@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Student Portal </title>
+    <title>Teacher Portal </title>
 
     <!-- Bootstrap -->
     <link href="../static/portal/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -36,7 +36,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="/dashboard" class="site_title"> <span>Student Portal</span></a>
+              <a href="/admin_courses" class="site_title"> <span>Teacher Portal</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -45,11 +45,11 @@
             <div class="profile clearfix">
               <div class="profile_pic">
                   
-                  <img src="{{url_for('display',filename=filename ,mode='fit')}}" width="60", height="60" class="img-circle profile_img">
+                  <img src="{{url_for('display',filename='user.png' ,mode='fit')}}" width="60", height="60" class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>{{ name }}</h2>
+                <h2>{{  session['tname']  }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -61,44 +61,8 @@
                 <div class="menu_section">
                   <h3>General</h3>
                   <ul class="nav side-menu">
-                    <li><a><i class="fa fa-home"></i> Overview <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="dashboard">Dashboard</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-desktop"></i> Personal Information <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="personal_details">Personal Detail</a></li>
-                        <li><a href="parental_details">Parent Detail</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="contact"><i class="fa fa-edit"></i> Contact Details</a>
-                      
-                    </li>
-                    <li><a href="communication"><i class="fa fa-table"></i> Communication Details</a>
-                    </li>
-                    <li><a href="qualified"><i class="fa fa-bar-chart-o"></i> Qualify Exam</a>
-                      
-                    </li>
-                    <li><a><i class="fa fa-clone"></i>Axademic Qualification <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="academic_classX">Class X</a></li>
-                        <li><a href="academic_classXII">Class XII</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-clone"></i>Marks <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="marks/1">semister-1</a></li>
-                        <li><a href="marks/2">semister-2</a></li>
-                        <li><a href="marks/3">semister-3</a></li>
-                        <li><a href="marks/4">semister-4</a></li>
-                        <li><a href="marks/5">semister-5</a></li>
-                        <li><a href="marks/6">semister-6</a></li>
-                        <li><a href="marks/7">semister-7</a></li>
-                        <li><a href="marks/8">semister-8</a></li>
-  
-                      </ul>
-                    </li>
+                    <li><a href="/admin_courses"><i class="fa fa-home"></i> Courses </a></li>
+                    <li><a href="/admin_students"><i class="fa fa-edit"></i> Students </a></li>
                   </ul>
                 </div>
               </div>
@@ -117,11 +81,11 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="../static/images/user.png" alt="">{{name}}
+                    <img src="../static/images/user.png" alt="">Admin
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="/logout"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
               </ul>
@@ -131,42 +95,85 @@
         <!-- /top navigation -->
 
         <!-- page content -->
+        
         <div class="right_col" role="main">
 
-         <form class="form-horizontal form-label-left input_mask" action="academic_classX" method="POST">
-
+          <h4 style="color: red; font-weight: bold;">{{ name }}</h4>
+         <form  class="form-horizontal form-label-left input_mask" action="{{ url_for('.admin_courses',cid='course') }}" method="POST">
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Passing Year </label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">Course ID (For reassigning instructor) </label>
                 <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" name="year" class="form-control" placeholder="eg: 2015">
+                  <input type="text" name="cid" class="form-control" placeholder="eg: IDBM432C">
+                </div>
+            </div>  
+            <div class="ln_solid"></div>
+            <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                  <button class="btn btn-primary" type="reset">Reset</button>
+                  <button type="submit" class="btn btn-success">Submit</button>
                 </div>
             </div>
-            <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Name of school </label>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                      <input type="text" name="school" class="form-control" placeholder="Central School">
-                    </div>
-            </div>
-            <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Board </label>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                      <input type="text" name="board" class="form-control" placeholder="Central Board of Secondary Education">
-                    </div>
-            </div>
-            <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">CGPA/Percentage </label>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                      <input type="text" name="percent" class="form-control" placeholder="eg: 10">
-                    </div>
-            </div>
-            <div class="ln_solid"></div>
+        </form>
+        
+        <form class="form-horizontal form-label-left input_mask" style="margin-top: 60px" action="{{ url_for('.remove_course') }}" method="POST">
           <div class="form-group">
+              <label class="control-label col-md-3 col-sm-3 col-xs-12">Remove some course - Course ID </label>
+              <div class="col-md-5 col-sm-5 col-xs-12">
+                <input type="text" name="cid" class="form-control" placeholder="eg: IDBM432C">
+              </div>
+          </div>
+          <div class="ln_solid"></div>
+          <div class="form-group">
+              <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                <button class="btn btn-primary" type="reset">Reset</button>
+                <button type="submit" class="btn btn-success">Submit</button>
+              </div>
+          </div>
+      </form>
+
+      <form class="form-horizontal form-label-left input_mask" style="margin-top: 60px" action="{{url_for('.add_course')}}" method="POST">
+        <div class="form-group">
+          <h4><label style="margin-left: 200px">Add Course to Database along with all other details </label></h4>
+      </div>  
+      <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">Course ID (For reassigning instructor) </label>
+        <div class="col-md-5 col-sm-5 col-xs-12">
+          <input type="text" name="cid" class="form-control" placeholder="eg: IDBM432C">
+        </div>
+    </div>  
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">Course Name </label>
+        <div class="col-md-5 col-sm-5 col-xs-12">
+          <input type="text" name="cname" class="form-control" placeholder="Database and Management">
+        </div>
+    </div>  
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">Course Credits </label>
+        <div class="col-md-5 col-sm-5 col-xs-12">
+          <input type="text" name="ccredits" class="form-control" placeholder="eg: 5">
+        </div>
+    </div>  
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">Semester </label>
+        <div class="col-md-5 col-sm-5 col-xs-12">
+          <input type="text" name="semester" class="form-control" placeholder="eg: 4">
+        </div>
+    </div> 
+    <div class="form-group">
+        <label class="control-label col-md-3 col-sm-3 col-xs-12">Assigned Teacher </label>
+        <div class="col-md-5 col-sm-5 col-xs-12">
+          <input type="text" name="tid" class="form-control" placeholder="eg: SG">
+        </div>
+    </div>  
+        <div class="ln_solid"></div>
+        <div class="form-group">
             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
               <button class="btn btn-primary" type="reset">Reset</button>
               <button type="submit" class="btn btn-success">Submit</button>
             </div>
-          </div>
-        </form>
+        </div>
+    </form>
+
         </div>
         <!-- /page content -->
 

@@ -497,9 +497,19 @@ def teacher_dashboard():
     if request.method == 'GET':
         if 'tname' in session:
             print session['tname']
-            print session['name']
-            return render_template('thanks.html')
+            return render_template('teacherdashboard.html')
     return redirect(url_for('logout'))
+
+@app.route('/marks/<filename>')
+def marks(filename):
+    filen="user.png"
+    person = Student.query.all()
+    for i in person:
+        if i.roll_no == session['roll_no']:
+            if i.image_url != None :
+                filen = i.image_url
+            break
+    return render_template('marks.html',filename=filen,semister=filename)
 
 @app.route('/register',methods=['GET','POST'])
 
@@ -546,7 +556,7 @@ def login():
             for i in teacher: 
                 if i.email == email and i.password == password:
                     session['temail'] = email
-                    session['tname'] = password
+                    session['tname'] = i.name
                     return redirect(url_for('teacher_dashboard'))
             return render_template('main.html',name="You are not registered teacher")
         if request.form.get('admin'):

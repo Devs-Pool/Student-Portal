@@ -28,6 +28,7 @@
     <link href="../static/portal/bootstrap-datetimepicker/build/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <!-- Custom Theme Style -->
     <link href="../static/css/build_css/custom.min.css" rel="stylesheet">
+    
   </head>
 
   <body class="nav-md">
@@ -49,7 +50,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>{{ name }}</h2>
+                <h2>{{ session['name'] }}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -58,50 +59,50 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                <div class="menu_section">
-                  <h3>General</h3>
-                  <ul class="nav side-menu">
-                    <li><a><i class="fa fa-home"></i> Overview <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="dashboard">Dashboard</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-desktop"></i> Personal Information <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="personal_details">Personal Detail</a></li>
-                        <li><a href="parental_details">Parent Detail</a></li>
-                      </ul>
-                    </li>
-                    <li><a href="contact"><i class="fa fa-edit"></i> Contact Details</a>
-                      
-                    </li>
-                    <li><a href="communication"><i class="fa fa-table"></i> Communication Details</a>
-                    </li>
-                    <li><a href="qualified"><i class="fa fa-bar-chart-o"></i> Qualify Exam</a>
-                      
-                    </li>
-                    <li><a><i class="fa fa-clone"></i>Axademic Qualification <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="academic_classX">Class X</a></li>
-                        <li><a href="academic_classXII">Class XII</a></li>
-                      </ul>
-                    </li>
-                    <li><a><i class="fa fa-clone"></i>Marks <span class="fa fa-chevron-down"></span></a>
-                      <ul class="nav child_menu">
-                        <li><a href="marks/1">semister-1</a></li>
-                        <li><a href="marks/2">semister-2</a></li>
-                        <li><a href="marks/3">semister-3</a></li>
-                        <li><a href="marks/4">semister-4</a></li>
-                        <li><a href="marks/5">semister-5</a></li>
-                        <li><a href="marks/6">semister-6</a></li>
-                        <li><a href="marks/7">semister-7</a></li>
-                        <li><a href="marks/8">semister-8</a></li>
-  
-                      </ul>
-                    </li>
-                  </ul>
-                </div>
+              <div class="menu_section">
+                <h3>General</h3>
+                <ul class="nav side-menu">
+                  <li class="active"><a><i class="fa fa-home"></i> Overview <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu" style="display: block">
+                      <li class="current-page"><a href="../dashboard">Dashboard</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-desktop"></i> Personal Information <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../personal_details">Personal Detail</a></li>
+                      <li><a href="../parental_details">Parent Detail</a></li>
+                    </ul>
+                  </li>
+                  <li><a href="../contact"><i class="fa fa-edit"></i> Contact Details</a>
+                    
+                  </li>
+                  <li><a href="../communication"><i class="fa fa-table"></i> Communication Details</a>
+                  </li>
+                  <li><a href="../qualified"><i class="fa fa-bar-chart-o"></i> Qualify Exam</a>
+                    
+                  </li>
+                  <li><a><i class="fa fa-clone"></i>Axademic Qualification <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../academic_classX">Class X</a></li>
+                      <li><a href="../academic_classXII">Class XII</a></li>
+                    </ul>
+                  </li>
+                  <li><a><i class="fa fa-clone"></i>Marks <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../marks/1">semister-1</a></li>
+                      <li><a href="../marks/2">semister-2</a></li>
+                      <li><a href="../marks/3">semister-3</a></li>
+                      <li><a href="../marks/4">semister-4</a></li>
+                      <li><a href="../marks/5">semister-5</a></li>
+                      <li><a href="../marks/6">semister-6</a></li>
+                      <li><a href="../marks/7">semister-7</a></li>
+                      <li><a href="../marks/8">semister-8</a></li>
+
+                    </ul>
+                  </li>
+                </ul>
               </div>
+            </div>
             <!-- /sidebar menu -->
           </div>
         </div>
@@ -117,7 +118,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="../static/images/user.png" alt="">{{name}}
+                    <img src="../static/images/user.png" alt="">{{session['name']}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -132,42 +133,36 @@
 
         <!-- page content -->
         <div class="right_col" role="main">
+            <font size="+2">Semister - {{semister}} </font>
+            <div class="boxed" style="background-color: white ; height: 800px; border: 1px solid rgb(221, 217, 217);margin-top:10px;">
+              <div style="margin-top:10px;margin-left:10px;">
+                  <font size="+1">Student's Marks</font>
+                  <hr style="display: block;
+                  margin-top: 0.7em;
+                  margin-bottom: 0.7em;
+                  margin-left: auto;
+                  margin-right: auto;
+                  border-style: inset;
+                  border-width: 0.5px;">
 
-         <form class="form-horizontal form-label-left input_mask" action="academic_classX" method="POST">
-
-            <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">Passing Year </label>
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                  <input type="text" name="year" class="form-control" placeholder="eg: 2015">
-                </div>
+                  <div class="boxed1" style="background-color: white ; height: 600px;width:700px; border: 1px solid rgb(207, 205, 205);margin-top:10px;float: left;margin-left:20px;">
+                      <div style="margin-top:10px;margin-left:10px;">
+                        <font size="+1">Courses : Marks</font>
+                        <hr style="display: block;
+                        margin-top: 0.7em;
+                        margin-bottom: 0.7em;
+                        margin-left: auto;
+                        margin-right: auto;
+                        border-style: inset;
+                        border-width: 0.5px;">
+                         
+                      </div>
+                  </div>
+                 
+              </div>
             </div>
-            <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Name of school </label>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                      <input type="text" name="school" class="form-control" placeholder="Central School">
-                    </div>
-            </div>
-            <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Board </label>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                      <input type="text" name="board" class="form-control" placeholder="Central Board of Secondary Education">
-                    </div>
-            </div>
-            <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">CGPA/Percentage </label>
-                    <div class="col-md-5 col-sm-5 col-xs-12">
-                      <input type="text" name="percent" class="form-control" placeholder="eg: 10">
-                    </div>
-            </div>
-            <div class="ln_solid"></div>
-          <div class="form-group">
-            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-              <button class="btn btn-primary" type="reset">Reset</button>
-              <button type="submit" class="btn btn-success">Submit</button>
-            </div>
-          </div>
-        </form>
         </div>
+        
         <!-- /page content -->
 
         <!-- footer content -->
@@ -225,5 +220,17 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
+    <script>
+      $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+          format: 'mm/dd/yyyy',
+          container: container,
+          todayHighlight: true,
+          autoclose: true,
+        })
+      })
+    </script>
   </body>
 </html>
