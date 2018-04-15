@@ -3,10 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask import url_for
 import os
 from werkzeug import secure_filename
+import re
 
 app = Flask(__name__)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:ptw161@akj011@localhost/StudentPortal'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:taru9668@localhost/studentPortal'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)  
 UPLOAD_FOLDER = './uploads'
@@ -813,8 +814,16 @@ def register():
         cpassword = request.form['Confirm Password']
         if name == "" or email == "" or password == "" :
             return redirect(url_for('register'))
+    
+        
+        if re.match('^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$', email) == None:
+            return render_template('register.html',name='This is not a valid email address')
+   
         if password != cpassword:
-            return render_template('register.html',name='Confirm your password!')
+            return render_template('register.html',name='Your password and confirm password doesn\'t match!')
+
+        if len(password)<4:
+            return render_template('register.html',name='Password\'s length should be greater than 4')
         person = Student.query.all()
         for i in person:
             if i.email == email:
@@ -851,14 +860,14 @@ def login():
                     session['temail'] = email
                     session['tname'] = i.name
                     return redirect(url_for('teacher_dashboard'))
-            return render_template('main.html',name="You are not registered teacher")
+            return render_template('main.html',name="Invalid Credentials!")
         if request.form.get('admin'):
             admin = Admin.query.all()
             for i in admin: 
                 if i.email == email and i.password == password:
                     session['aemail'] = email
                     return redirect(url_for('.admin_courses',cid='course'))
-            return render_template('main.html',name="You are not registered admin")
+            return render_template('main.html',name="You are not registered admin!")
         person = Student.query.all()
         for i in person:
             if i.email == email and i.password==password:
@@ -866,7 +875,7 @@ def login():
                 session['name']=i.name
                 session['roll_no']=i.roll_no
                 return redirect(url_for('dashboard'))
-        return render_template('main.html',name = "Yor are not a registered user!")
+        return render_template('main.html',name = "Invalid Credentials!")
     return render_template('main.html',name="")
 
 @app.route('/',methods=['GET','POST'])
