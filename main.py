@@ -810,8 +810,11 @@ def register():
         name = request.form['Name']
         email  = request.form['Email']
         password = request.form['Password']
+        cpassword = request.form['Confirm Password']
         if name == "" or email == "" or password == "" :
             return redirect(url_for('register'))
+        if password != cpassword:
+            return render_template('register.html',name='Confirm your password!')
         person = Student.query.all()
         for i in person:
             if i.email == email:
